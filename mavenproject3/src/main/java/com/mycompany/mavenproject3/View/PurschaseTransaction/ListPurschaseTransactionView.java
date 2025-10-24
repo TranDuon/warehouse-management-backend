@@ -2,14 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.mycompany.mavenproject3.ControllerAndView.MotLuotNhap;
+package com.mycompany.mavenproject3.View.PurschaseTransaction;
 
-import com.mycompany.mavenproject3.ControllerAndView.MotLuotBan.*;
-import com.mycompany.mavenproject3.ControllerAndView.Interface.ViewHasChosenObjectInterface;
-import com.mycompany.mavenproject3.ControllerAndView.Interface.ViewHasListObjectInterface;
-import com.mycompany.mavenproject3.ControllerAndView.Interface.ViewHasParameterObject;
-import com.mycompany.mavenproject3.Db.MotLuotBan.MotLuotBan;
-import com.mycompany.mavenproject3.Db.MotLuotNhap.MotLuotNhap;
+import com.mycompany.mavenproject3.View.Interface.ViewHasChosenObjectInterface;
+import com.mycompany.mavenproject3.View.Interface.ViewHasListObjectInterface;
+import com.mycompany.mavenproject3.View.Interface.ViewHasParameterObject;
+import com.mycompany.mavenproject3.Db.SaleTransaction.Entity.SaleTransaction;
+import com.mycompany.mavenproject3.Db.PurschaseTransaction.Entity.PurschaseTransaction;
 import java.awt.event.ActionListener;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -22,36 +21,36 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author azoom
  */
-public class ListMotLuotNhapView 
+public class ListPurschaseTransactionView 
         extends javax.swing.JFrame 
         implements 
-            ViewHasListObjectInterface<MotLuotNhap>,
-            ViewHasChosenObjectInterface<MotLuotNhap>,
-            ViewHasParameterObject<ListMotLuotNhapViewParameter>
+            ViewHasListObjectInterface<PurschaseTransaction>,
+            ViewHasChosenObjectInterface<PurschaseTransaction>,
+            ViewHasParameterObject<ListPurschaseTransactionViewParameter>
 {
 
     
     /**
      * Creates new form ListMotLuotBanView
      */
-    public ListMotLuotNhapView() {
+    public ListPurschaseTransactionView() {
         initComponents();
     }
 
     @Override
-    public void setListObjectAndReload(List<MotLuotNhap> dsT) {
+    public void setListObjectAndReload(List<PurschaseTransaction> dsT) {
         this.dsT = dsT;
         this.reloadListObjectOnView();
     }
 
     @Override
-    public List<MotLuotNhap> getListObjectFromView() {
+    public List<PurschaseTransaction> getListObjectFromView() {
         DefaultTableModel model = (DefaultTableModel) this.table.getModel();
         Integer sohang = model.getRowCount();
         
-        List<MotLuotNhap> list = new ArrayList<>();
+        List<PurschaseTransaction> list = new ArrayList<>();
         for(int i=0; i<sohang; i++){
-            MotLuotNhap t = new MotLuotNhap(
+            PurschaseTransaction t = new PurschaseTransaction(
                     Long.valueOf(model.getValueAt(i, 0).toString()),
                     Timestamp.valueOf(LocalDateTime.parse(model.getValueAt(i, 1).toString(), dateTimeFormatter2)),
                     Boolean.valueOf(model.getValueAt(i, 2).toString()),
@@ -68,13 +67,13 @@ public class ListMotLuotNhapView
         DefaultTableModel model = (DefaultTableModel) this.table.getModel();
         model.setRowCount(0);
         
-        for(MotLuotNhap t : this.dsT){
+        for(PurschaseTransaction t : this.dsT){
             model.addRow(
                     new Object[]{
                         t.getId(),
-                        t.getThoigian().toLocalDateTime().format(dateTimeFormatter2),
-                        t.getDathanhtoan(),
-                        t.getUseridNhanvien()
+                        t.getTimestamp().toLocalDateTime().format(dateTimeFormatter2),
+                        t.getIsPaid(),
+                        t.getUseridEmployee()
                     }
             );
         }
@@ -103,13 +102,13 @@ public class ListMotLuotNhapView
     }
 
     @Override
-    public MotLuotNhap getChosenObject() {
+    public PurschaseTransaction getChosenObject() {
         Integer sttHangDaChon = this.table.getSelectedRow();
         
         if(sttHangDaChon!=-1){
             DefaultTableModel model = (DefaultTableModel) this.table.getModel();
             
-            MotLuotNhap t = new MotLuotNhap(
+            PurschaseTransaction t = new PurschaseTransaction(
                     Long.valueOf(model.getValueAt(sttHangDaChon, 0).toString()),
                     Timestamp.valueOf(LocalDateTime.parse(model.getValueAt(sttHangDaChon, 1).toString(), dateTimeFormatter2)),
                     Boolean.valueOf(model.getValueAt(sttHangDaChon, 2).toString()),
@@ -122,8 +121,8 @@ public class ListMotLuotNhapView
     }
 
     @Override
-    public ListMotLuotNhapViewParameter getParameterFromView() {
-        return new ListMotLuotNhapViewParameter(
+    public ListPurschaseTransactionViewParameter getParameterFromView() {
+        return new ListPurschaseTransactionViewParameter(
 //                LocalDateTime.parse(this.from.getText(), dateTimeFormatter1),
 //                LocalDateTime.parse(this.to.getText(), dateTimeFormatter1)
                 LocalDateTime.parse("00:00:00 "+ this.from.getText(), dateTimeFormatter2 ),
@@ -132,7 +131,7 @@ public class ListMotLuotNhapView
     }
 
     @Override
-    public void setParameterAndReload(ListMotLuotNhapViewParameter t) {
+    public void setParameterAndReload(ListPurschaseTransactionViewParameter t) {
         this.p = t;
         this.reloadParameterOnView();
     }
@@ -241,7 +240,7 @@ public class ListMotLuotNhapView
                                 .addComponent(to, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(search)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 55, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -289,21 +288,23 @@ public class ListMotLuotNhapView
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ListMotLuotNhapView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListPurschaseTransactionView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ListMotLuotNhapView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListPurschaseTransactionView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ListMotLuotNhapView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListPurschaseTransactionView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListMotLuotNhapView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListPurschaseTransactionView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ListMotLuotNhapView().setVisible(true);
+                new ListPurschaseTransactionView().setVisible(true);
             }
         });
     }
@@ -318,8 +319,8 @@ public class ListMotLuotNhapView
     private javax.swing.JTable table;
     private javax.swing.JTextField to;
     // End of variables declaration//GEN-END:variables
-    private List<MotLuotNhap> dsT;
+    private List<PurschaseTransaction> dsT;
     private static DateTimeFormatter dateTimeFormatter1 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private static DateTimeFormatter dateTimeFormatter2 = DateTimeFormatter.ofPattern("HH:mm:ss dd/MM/yyyy");
-    private ListMotLuotNhapViewParameter p;
+    private ListPurschaseTransactionViewParameter p;
 }

@@ -2,12 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.mycompany.mavenproject3.ControllerAndView.MotLuotBan;
+package com.mycompany.mavenproject3.View.SaleTransaction;
 
-import com.mycompany.mavenproject3.ControllerAndView.Interface.ViewHasChosenObjectInterface;
-import com.mycompany.mavenproject3.ControllerAndView.Interface.ViewHasListObjectInterface;
-import com.mycompany.mavenproject3.ControllerAndView.Interface.ViewHasParameterObject;
-import com.mycompany.mavenproject3.Db.MotLuotBan.MotLuotBan;
+import com.mycompany.mavenproject3.View.Interface.ViewHasChosenObjectInterface;
+import com.mycompany.mavenproject3.View.Interface.ViewHasListObjectInterface;
+import com.mycompany.mavenproject3.View.Interface.ViewHasParameterObject;
+import com.mycompany.mavenproject3.Db.SaleTransaction.Entity.SaleTransaction;
 import java.awt.event.ActionListener;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -20,36 +20,36 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author azoom
  */
-public class ListMotLuotBanView 
+public class ListSaleTransactionView 
         extends javax.swing.JFrame 
         implements 
-            ViewHasListObjectInterface<MotLuotBan>,
-            ViewHasChosenObjectInterface<MotLuotBan>,
-            ViewHasParameterObject<ListMotLuotBanViewParameter>
+            ViewHasListObjectInterface<SaleTransaction>,
+            ViewHasChosenObjectInterface<SaleTransaction>,
+            ViewHasParameterObject<ListSaleTransactionViewParameter>
 {
 
     
     /**
      * Creates new form ListMotLuotBanView
      */
-    public ListMotLuotBanView() {
+    public ListSaleTransactionView() {
         initComponents();
     }
 
     @Override
-    public void setListObjectAndReload(List<MotLuotBan> dsT) {
+    public void setListObjectAndReload(List<SaleTransaction> dsT) {
         this.dsT = dsT;
         this.reloadListObjectOnView();
     }
 
     @Override
-    public List<MotLuotBan> getListObjectFromView() {
+    public List<SaleTransaction> getListObjectFromView() {
         DefaultTableModel model = (DefaultTableModel) this.table.getModel();
         Integer sohang = model.getRowCount();
         
-        List<MotLuotBan> list = new ArrayList<>();
+        List<SaleTransaction> list = new ArrayList<>();
         for(int i=0; i<sohang; i++){
-            MotLuotBan t = new MotLuotBan(
+            SaleTransaction t = new SaleTransaction(
                     Long.valueOf(model.getValueAt(i, 0).toString()),
                     Timestamp.valueOf(LocalDateTime.parse(model.getValueAt(i, 1).toString(), dateTimeFormatter2)),
                     Boolean.valueOf(model.getValueAt(i, 2).toString()),
@@ -66,13 +66,13 @@ public class ListMotLuotBanView
         DefaultTableModel model = (DefaultTableModel) this.table.getModel();
         model.setRowCount(0);
         
-        for(MotLuotBan t : this.dsT){
+        for(SaleTransaction t : this.dsT){
             model.addRow(
                     new Object[]{
                         t.getId(),
-                        t.getThoigian().toLocalDateTime().format(dateTimeFormatter2),
-                        t.getDathanhtoan(),
-                        t.getUseridNhanvien()
+                        t.getTimestamp().toLocalDateTime().format(dateTimeFormatter2),
+                        t.getIsPaid(),
+                        t.getUseridEmployee()
                     }
             );
         }
@@ -101,13 +101,13 @@ public class ListMotLuotBanView
     }
 
     @Override
-    public MotLuotBan getChosenObject() {
+    public SaleTransaction getChosenObject() {
         Integer sttHangDaChon = this.table.getSelectedRow();
         
         if(sttHangDaChon!=-1){
             DefaultTableModel model = (DefaultTableModel) this.table.getModel();
             
-            MotLuotBan t = new MotLuotBan(
+            SaleTransaction t = new SaleTransaction(
                     Long.valueOf(model.getValueAt(sttHangDaChon, 0).toString()),
                     Timestamp.valueOf(LocalDateTime.parse(model.getValueAt(sttHangDaChon, 1).toString(), dateTimeFormatter2)),
                     Boolean.valueOf(model.getValueAt(sttHangDaChon, 2).toString()),
@@ -120,8 +120,8 @@ public class ListMotLuotBanView
     }
 
     @Override
-    public ListMotLuotBanViewParameter getParameterFromView() {
-        return new ListMotLuotBanViewParameter(
+    public ListSaleTransactionViewParameter getParameterFromView() {
+        return new ListSaleTransactionViewParameter(
 //                LocalDateTime.parse(this.from.getText(), dateTimeFormatter1),
 //                LocalDateTime.parse(this.to.getText(), dateTimeFormatter1)
                 LocalDateTime.parse("00:00:00 "+ this.from.getText(), dateTimeFormatter2 ),
@@ -130,7 +130,7 @@ public class ListMotLuotBanView
     }
 
     @Override
-    public void setParameterAndReload(ListMotLuotBanViewParameter t) {
+    public void setParameterAndReload(ListSaleTransactionViewParameter t) {
         this.p = t;
         this.reloadParameterOnView();
     }
@@ -239,7 +239,7 @@ public class ListMotLuotBanView
                                 .addComponent(to, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(search)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 26, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -287,20 +287,21 @@ public class ListMotLuotBanView
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ListMotLuotBanView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListSaleTransactionView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ListMotLuotBanView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListSaleTransactionView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ListMotLuotBanView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListSaleTransactionView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListMotLuotBanView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListSaleTransactionView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ListMotLuotBanView().setVisible(true);
+                new ListSaleTransactionView().setVisible(true);
             }
         });
     }
@@ -315,8 +316,8 @@ public class ListMotLuotBanView
     private javax.swing.JTable table;
     private javax.swing.JTextField to;
     // End of variables declaration//GEN-END:variables
-    private List<MotLuotBan> dsT;
+    private List<SaleTransaction> dsT;
     private static DateTimeFormatter dateTimeFormatter1 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private static DateTimeFormatter dateTimeFormatter2 = DateTimeFormatter.ofPattern("HH:mm:ss dd/MM/yyyy");
-    private ListMotLuotBanViewParameter p;
+    private ListSaleTransactionViewParameter p;
 }

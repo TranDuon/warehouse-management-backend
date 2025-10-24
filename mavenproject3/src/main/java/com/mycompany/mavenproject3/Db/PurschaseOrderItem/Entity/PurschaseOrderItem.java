@@ -2,48 +2,48 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.mavenproject3.Db.DsspNhap;
+package com.mycompany.mavenproject3.Db.PurschaseOrderItem.Entity;
 
 /**
  *
  * @author azoom
  */
-public class DsspNhap {
-    private DsspNhapId id;
-    private Integer soluong;
-    private Long gia;
+public class PurschaseOrderItem {
+    private PurschaseOrderItemId id;
+    private Integer quantity;
+    private Long price;
 
-    public DsspNhap() {
+    public PurschaseOrderItem() {
     }
 
-    public DsspNhap(DsspNhapId id, Integer soluong, Long gia) {
+    public PurschaseOrderItem(PurschaseOrderItemId id, Integer quantity, Long price) {
         this.id = id;
-        this.soluong = soluong;
-        this.gia = gia;
+        this.quantity = quantity;
+        this.price = price;
     }
 
-    public DsspNhapId getId() {
+    public PurschaseOrderItemId getId() {
         return id;
     }
 
-    public void setId(DsspNhapId id) {
+    public void setId(PurschaseOrderItemId id) {
         this.id = id;
     }
 
-    public Integer getSoluong() {
-        return soluong;
+    public Integer getQuantity() {
+        return quantity;
     }
 
-    public void setSoluong(Integer soluong) {
-        this.soluong = soluong;
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
-    public Long getGia() {
-        return gia;
+    public Long getPrice() {
+        return price;
     }
 
-    public void setGia(Long gia) {
-        this.gia = gia;
+    public void setPrice(Long price) {
+        this.price = price;
     }
     
     

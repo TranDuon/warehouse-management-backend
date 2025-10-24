@@ -4,9 +4,10 @@
 
 package com.mycompany.mavenproject3;
 
+import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
-import com.mycompany.mavenproject3.ControllerAndView.Login.LoginController;
+import com.mycompany.mavenproject3.Controller.LoginController;
 
 /**
  *
@@ -17,7 +18,8 @@ public class Mavenproject3 {
     public static void main(String[] args) {
         // System.out.println("Hello World!");
         
-        FlatLightLaf.setup();
+//        FlatLightLaf.setup();
+//        FlatIntelliJLaf.setup();
         
         LoginController loginController = new LoginController();
         loginController.showMainView();

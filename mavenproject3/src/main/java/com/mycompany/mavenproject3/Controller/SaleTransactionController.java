@@ -2,19 +2,27 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.mavenproject3.ControllerAndView.MotLuotBan;
+package com.mycompany.mavenproject3.Controller;
 
-import com.mycompany.mavenproject3.ControllerAndView.Home.HomeController;
-import com.mycompany.mavenproject3.ControllerAndView.Interface.ControllerInterface;
-import com.mycompany.mavenproject3.ControllerAndView.VatPham.SearchByNameVatPhamViewParameter;
-import com.mycompany.mavenproject3.Db.DsspBan.DsspBan;
-import com.mycompany.mavenproject3.Db.DsspBan.DsspBanId;
-import com.mycompany.mavenproject3.Db.DsspBan.DsspBanService;
-import com.mycompany.mavenproject3.Db.MotLuotBan.MotLuotBan;
-import com.mycompany.mavenproject3.Db.MotLuotBan.MotLuotBanService;
-import com.mycompany.mavenproject3.Db.User.User;
-import com.mycompany.mavenproject3.Db.VatPham.VatPham;
-import com.mycompany.mavenproject3.Db.VatPham.VatPhamService;
+import com.mycompany.mavenproject3.Controller.HomeController;
+import com.mycompany.mavenproject3.Controller.ControllerInterface;
+import com.mycompany.mavenproject3.View.Product.SearchByNameProductViewParameter;
+import com.mycompany.mavenproject3.Db.SaleOrderItem.Entity.SaleOrderItem;
+import com.mycompany.mavenproject3.Db.SaleOrderItem.Entity.SaleOrderItemId;
+import com.mycompany.mavenproject3.Db.SaleOrderItem.Service.SaleOrderItemService;
+import com.mycompany.mavenproject3.Db.SaleTransaction.Entity.SaleTransaction;
+import com.mycompany.mavenproject3.Db.SaleTransaction.Service.SaleTransactionService;
+import com.mycompany.mavenproject3.Db.User.Entity.User;
+import com.mycompany.mavenproject3.Db.Product.Entity.Product;
+import com.mycompany.mavenproject3.Db.Product.Service.ProductService;
+import com.mycompany.mavenproject3.View.SaleTransaction.CreateSaleTransactionView;
+import com.mycompany.mavenproject3.View.SaleTransaction.DetailsSaleTransactionView;
+import com.mycompany.mavenproject3.View.SaleTransaction.ListSaleTransactionView;
+import com.mycompany.mavenproject3.View.SaleTransaction.ListSaleTransactionViewParameter;
+import com.mycompany.mavenproject3.View.SaleTransaction.ProductWithSaleQuantity;
+import com.mycompany.mavenproject3.View.SaleTransaction.SaleOrderItemHasNameProduct;
+import com.mycompany.mavenproject3.View.SaleTransaction.SaleTransactionView;
+import com.mycompany.mavenproject3.View.SaleTransaction.SearchAndAddSaleProductView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Timestamp;
@@ -26,71 +34,71 @@ import java.util.List;
  *
  * @author azoom
  */
-public class MotLuotBanController 
+public class SaleTransactionController 
         implements ControllerInterface
 {
     // thuộc tính dùng chung
     private User user;
-    private MotLuotBanService motLuotBanService;
-    private DsspBanService dsspBanService;
-    private VatPhamService vatPhamService;
+    private SaleTransactionService saleTransactionService;
+    private SaleOrderItemService saleOrderItemService;
+    private ProductService productService;
     
     // view do controller này quản lý
-    private CreateMotLuotBanView createMotLuotBanView;
-    private MotLuotBanView motLuotBanView;
-    private SearchAndAddVatPhamView searchAndAddVatPhamView;
-    private ListMotLuotBanView listMotLuotBanView;
-    private DetailsMotLuotBanView detailsMotLuotBanView;
+    private CreateSaleTransactionView createSaleTransactionView;
+    private SaleTransactionView saleTransactionView;
+    private SearchAndAddSaleProductView searchAndAddSaleProductView;
+    private ListSaleTransactionView listSaleTransactionView;
+    private DetailsSaleTransactionView detailsSaleTransactionView;
     
     
     // constructor
-    public MotLuotBanController(User user) {
+    public SaleTransactionController(User user) {
         this.user = user;
-        this.motLuotBanService = new MotLuotBanService();
-        this.dsspBanService = new DsspBanService();
-        this.vatPhamService = new VatPhamService();
+        this.saleTransactionService = new SaleTransactionService();
+        this.saleOrderItemService = new SaleOrderItemService();
+        this.productService = new ProductService();
         
-        this.createMotLuotBanView = new CreateMotLuotBanView();
-        this.createMotLuotBanView.add_Listener_Button_Add(new Listener_CreateMotLuotBanView_Button_Add());
-        this.createMotLuotBanView.add_Listener_Button_Create(new Listener_CreateMotLuotBanView_Button_Create());
-        this.createMotLuotBanView.add_Listener_Button_Cancel(new Listener_CreateMotLuotBanView_Button_Cancel());
+        this.createSaleTransactionView = new CreateSaleTransactionView();
+        this.createSaleTransactionView.add_Listener_Button_Add(new Listener_CreateSaleTransactionView_Button_Add());
+        this.createSaleTransactionView.add_Listener_Button_Create(new Listener_CreateSaleTransactionView_Button_Create());
+        this.createSaleTransactionView.add_Listener_Button_Cancel(new Listener_CreateSaleTransactionView_Button_Cancel());
         
-        this.motLuotBanView = new MotLuotBanView();
-        this.motLuotBanView.add_Listener_Button_Create(new Listener_MotLuotBanView_Button_Create());
-        this.motLuotBanView.add_Listener_Button_GetList(new Listener_MotLuotBanView_Button_GetList());
+        this.saleTransactionView = new SaleTransactionView();
+        this.saleTransactionView.add_Listener_Button_Create(new Listener_SaleTransactionView_Button_Create());
+        this.saleTransactionView.add_Listener_Button_GetList(new Listener_SaleTransactionView_Button_GetList());
         
-        this.searchAndAddVatPhamView = new SearchAndAddVatPhamView();
-        this.searchAndAddVatPhamView.add_Listener_Button_Add(new Listener_SearchAndAddVatPhamView_Button_Add());
-        this.searchAndAddVatPhamView.add_Listener_Button_Search(new Listener_SearchAndAddVatPhamView_Button_Search());
+        this.searchAndAddSaleProductView = new SearchAndAddSaleProductView();
+        this.searchAndAddSaleProductView.add_Listener_Button_Add(new Listener_SearchAndAddSaleProductView_Button_Add());
+        this.searchAndAddSaleProductView.add_Listener_Button_Search(new Listener_SearchAndAddSaleProductView_Button_Search());
         
-        this.listMotLuotBanView = new ListMotLuotBanView();
-        this.listMotLuotBanView.add_Listener_Button_Search(new Listener_ListMotLuotBanView_Button_Search());
-        this.listMotLuotBanView.add_Listener_Button_GetDetails(new Listener_ListMotLuotBanView_Button_GetDetails());
+        this.listSaleTransactionView = new ListSaleTransactionView();
+        this.listSaleTransactionView.add_Listener_Button_Search(new Listener_ListSaleTransactionView_Button_Search());
+        this.listSaleTransactionView.add_Listener_Button_GetDetails(new Listener_ListSaleTransactionView_Button_GetDetails());
         
-        this.detailsMotLuotBanView = new DetailsMotLuotBanView();
+        this.detailsSaleTransactionView = new DetailsSaleTransactionView();
         
                 
     }
     
     @Override
     public void showMainView() {
-        this.motLuotBanView.showView();
+        this.saleTransactionView.showView();
     }
 
     @Override
     public void hideMainView() {
-        this.motLuotBanView.hideView();
+        this.saleTransactionView.hideView();
     }
     
-    public ArrayList<DsspBanHasNameProduct> convertDsspBan(ArrayList<DsspBan> dsT){
+    public ArrayList<SaleOrderItemHasNameProduct> convertDsspBan(ArrayList<SaleOrderItem> dsT){
         
-        ArrayList<DsspBanHasNameProduct> dsT2 = new ArrayList<>();
+        ArrayList<SaleOrderItemHasNameProduct> dsT2 = new ArrayList<>();
         
-        for(DsspBan t : dsT){
-            VatPham vp1 = this.vatPhamService.findById(t.getId().getVatPhamid());
-            DsspBanHasNameProduct t2 = new DsspBanHasNameProduct(
+        for(SaleOrderItem t : dsT){
+            Product vp1 = this.productService.findById(t.getId().getVatPhamid());
+            SaleOrderItemHasNameProduct t2 = new SaleOrderItemHasNameProduct(
                     t, 
-                    vp1.getTen()
+                    vp1.getName()
             );
             dsT2.add(t2);
         }
@@ -106,107 +114,107 @@ public class MotLuotBanController
 
 */
 // At this view
-class Listener_MotLuotBanView_Button_Create implements ActionListener {
+class Listener_SaleTransactionView_Button_Create implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        createMotLuotBanView.showView();
+        createSaleTransactionView.showView();
     }
 
 }
 
-class Listener_MotLuotBanView_Button_GetList implements ActionListener {
+class Listener_SaleTransactionView_Button_GetList implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        listMotLuotBanView.showView();
+        listSaleTransactionView.showView();
     }
 
 }
 
-// at CreateMotLuotBanView
-class Listener_CreateMotLuotBanView_Button_Add implements ActionListener {
+// at CreateSaleTransactionView
+class Listener_CreateSaleTransactionView_Button_Add implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        searchAndAddVatPhamView.showView();
+        searchAndAddSaleProductView.showView();
     }
 
 }
 
-class Listener_CreateMotLuotBanView_Button_Create implements ActionListener {
+class Listener_CreateSaleTransactionView_Button_Create implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        List<VatPhamWithSoLuongDat> dsT = createMotLuotBanView.getListObjectFromView();
+        List<ProductWithSaleQuantity> dsT = createSaleTransactionView.getListObjectFromView();
         User user1 = user;
         
-        MotLuotBan motLuotBan = new MotLuotBan(
+        SaleTransaction motLuotBan = new SaleTransaction(
                 null, 
                 Timestamp.from(Instant.now()), 
                 Boolean.TRUE, 
                 user1.getId()
         );
         
-        motLuotBan = motLuotBanService.create(motLuotBan);
+        motLuotBan = saleTransactionService.create(motLuotBan);
         
-        List<DsspBan> listDsspBan = new ArrayList<>();
+        List<SaleOrderItem> listDsspBan = new ArrayList<>();
         
-        for(VatPhamWithSoLuongDat motVatPhamWithSoLuong : dsT){
-            VatPham tempVatPham = vatPhamService.findById(motVatPhamWithSoLuong.getVatPham().getId());
+        for(ProductWithSaleQuantity motVatPhamWithSoLuong : dsT){
+            Product tempVatPham = productService.findById(motVatPhamWithSoLuong.getProduct().getId());
             
-            DsspBan tempDsspBan = new DsspBan(
-                    new DsspBanId(
-                            motVatPhamWithSoLuong.getVatPham().getId(),
+            SaleOrderItem tempDsspBan = new SaleOrderItem(
+                    new SaleOrderItemId(
+                            motVatPhamWithSoLuong.getProduct().getId(),
                             motLuotBan.getId()
                     ),
-                    motVatPhamWithSoLuong.getSoLuongDat(),
-                    tempVatPham.getGia()
+                    motVatPhamWithSoLuong.getQuantity(),
+                    tempVatPham.getPrice()
             );
             
-            tempDsspBan= dsspBanService.create(tempDsspBan);
+            tempDsspBan= saleOrderItemService.create(tempDsspBan);
             listDsspBan.add(tempDsspBan);
             
-            tempVatPham.setSoluong(tempVatPham.getSoluong()-motVatPhamWithSoLuong.getSoLuongDat());
-            tempVatPham = vatPhamService.update(tempVatPham.getId(), tempVatPham);
+            tempVatPham.setQuantity(tempVatPham.getQuantity()-motVatPhamWithSoLuong.getQuantity());
+            tempVatPham = productService.update(tempVatPham.getId(), tempVatPham);
         }
         
-        createMotLuotBanView.deleteContent();
+        createSaleTransactionView.deleteContent();
     }
 
 }
 
-class Listener_CreateMotLuotBanView_Button_Cancel implements ActionListener {
+class Listener_CreateSaleTransactionView_Button_Cancel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        createMotLuotBanView.deleteContent();
+        createSaleTransactionView.deleteContent();
         showMainView();
-        createMotLuotBanView.hideView();
+        createSaleTransactionView.hideView();
     }
     
 }
 
 
 // at searchAndAddView
-class Listener_SearchAndAddVatPhamView_Button_Search implements ActionListener {
+class Listener_SearchAndAddSaleProductView_Button_Search implements ActionListener {
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        SearchByNameVatPhamViewParameter t = searchAndAddVatPhamView.getParameterFromView();
+        SearchByNameProductViewParameter t = searchAndAddSaleProductView.getParameterFromView();
         
-        List<VatPham> listVp1 = vatPhamService.findByName(t.getNameKeyword());
+        List<Product> listVp1 = productService.findByName(t.getNameKeyword());
         
-        searchAndAddVatPhamView.setListObjectAndReload(listVp1);
+        searchAndAddSaleProductView.setListObjectAndReload(listVp1);
     }
 
 }
 
-class Listener_SearchAndAddVatPhamView_Button_Add implements ActionListener {
+class Listener_SearchAndAddSaleProductView_Button_Add implements ActionListener {
 
-    public Boolean isContain(List<VatPhamWithSoLuongDat> dsT, VatPham vatPham){
-        for(VatPhamWithSoLuongDat t : dsT){
-            if(t.getVatPham().getId()==vatPham.getId()){
+    public Boolean isContain(List<ProductWithSaleQuantity> dsT, Product vatPham){
+        for(ProductWithSaleQuantity t : dsT){
+            if(t.getProduct().getId()==vatPham.getId()){
                 return true;
             }
         }
@@ -215,16 +223,16 @@ class Listener_SearchAndAddVatPhamView_Button_Add implements ActionListener {
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        List<VatPhamWithSoLuongDat> dsT = createMotLuotBanView.getListObjectFromView();
+        List<ProductWithSaleQuantity> dsT = createSaleTransactionView.getListObjectFromView();
         
-        VatPham vatPham = searchAndAddVatPhamView.getChosenObject();
+        Product vatPham = searchAndAddSaleProductView.getChosenObject();
         
         if(isContain(dsT, vatPham)==false ){
             dsT.add(
-                    new VatPhamWithSoLuongDat(vatPham, 1)
+                    new ProductWithSaleQuantity(vatPham, 1)
             );
 
-            createMotLuotBanView.setListObjectAndReload(dsT);
+            createSaleTransactionView.setListObjectAndReload(dsT);
         }
         else{
             // doesnt do
@@ -233,35 +241,35 @@ class Listener_SearchAndAddVatPhamView_Button_Add implements ActionListener {
 
 }
 
-// at list MotLuotBanView
-class Listener_ListMotLuotBanView_Button_Search implements ActionListener {
+// at list SaleTransactionView
+class Listener_ListSaleTransactionView_Button_Search implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        ListMotLuotBanViewParameter p = listMotLuotBanView.getParameterFromView();
+        ListSaleTransactionViewParameter p = listSaleTransactionView.getParameterFromView();
         
-        List<MotLuotBan> dsT = motLuotBanService.findByTime(p.getDateTimeFrom_Timestamp(), p.getDateTimeTo_Timestamp());
+        List<SaleTransaction> dsT = saleTransactionService.findByTime(p.getDateTimeFrom_Timestamp(), p.getDateTimeTo_Timestamp());
         
-        listMotLuotBanView.setListObjectAndReload(dsT);
+        listSaleTransactionView.setListObjectAndReload(dsT);
     }
 
 }
 
-class Listener_ListMotLuotBanView_Button_GetDetails implements ActionListener {
+class Listener_ListSaleTransactionView_Button_GetDetails implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        MotLuotBan t= listMotLuotBanView.getChosenObject();
+        SaleTransaction t= listSaleTransactionView.getChosenObject();
         
-        detailsMotLuotBanView.deleteContent();
+        detailsSaleTransactionView.deleteContent();
         
-        detailsMotLuotBanView.setObjectAndReload(t);
+        detailsSaleTransactionView.setObjectAndReload(t);
 
-        ArrayList<DsspBan> dsT = (ArrayList<DsspBan>) dsspBanService.findByMotLuotBanId(t.getId());
-        ArrayList<DsspBanHasNameProduct> dsT2 = convertDsspBan(dsT);
-        detailsMotLuotBanView.setListObjectAndReload(dsT2);
+        ArrayList<SaleOrderItem> dsT = (ArrayList<SaleOrderItem>) saleOrderItemService.findBySaleTransactionId(t.getId());
+        ArrayList<SaleOrderItemHasNameProduct> dsT2 = convertDsspBan(dsT);
+        detailsSaleTransactionView.setListObjectAndReload(dsT2);
         
-        detailsMotLuotBanView.showView();
+        detailsSaleTransactionView.showView();
     }
 
 }

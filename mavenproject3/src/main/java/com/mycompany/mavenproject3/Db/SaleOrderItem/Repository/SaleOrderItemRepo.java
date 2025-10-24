@@ -2,8 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.mavenproject3.Db.DsspBan;
+package com.mycompany.mavenproject3.Db.SaleOrderItem.Repository;
 
+import com.mycompany.mavenproject3.Db.SaleOrderItem.Entity.SaleOrderItemId;
+import com.mycompany.mavenproject3.Db.SaleOrderItem.Entity.SaleOrderItem;
 import com.mycompany.mavenproject3.Db.Interface.RepoInterface;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -18,14 +20,14 @@ import java.util.List;
  *
  * @author azoom
  */
-public class DsspBanRepo 
-        implements RepoInterface<DsspBan, DsspBanId>
+public class SaleOrderItemRepo 
+        implements RepoInterface<SaleOrderItem, SaleOrderItemId>
 {
     private static final String url= "jdbc:sqlserver://localhost:1433;databaseName=DemoJava6;encrypt=false;trustServerCertificate=true";
     private static final String username = "a0000";
     private static final String password = "a0000";
 
-    public DsspBanRepo() {
+    public SaleOrderItemRepo() {
     }
     
     
@@ -36,10 +38,10 @@ public class DsspBanRepo
     }
     
     @Override
-    public DsspBan getFromResultSet(ResultSet rs) {
+    public SaleOrderItem getFromResultSet(ResultSet rs) {
         try {
-            DsspBan t = new DsspBan(
-                new DsspBanId(
+            SaleOrderItem t = new SaleOrderItem(
+                new SaleOrderItemId(
                     rs.getLong("VatPhamid"),
                     rs.getLong("MotLuotBanid")
                 ),
@@ -55,7 +57,7 @@ public class DsspBanRepo
     }
 
     @Override
-    public DsspBan findById(DsspBanId id) {
+    public SaleOrderItem findById(SaleOrderItemId id) {
         String sql = "SELECT VatPhamid, MotLuotBanid, soluong, gia FROM DsspBan WHERE VatPhamid=? AND MotLuotBanid=?;";
         try 
         /*resource*/ (
@@ -69,7 +71,7 @@ public class DsspBanRepo
             ResultSet rs = ps.executeQuery();
             
             if(rs.next()==true ){
-                DsspBan t= this.getFromResultSet(rs);
+                SaleOrderItem t= this.getFromResultSet(rs);
                 return t;
             }
             
@@ -82,10 +84,10 @@ public class DsspBanRepo
     }
     
     @Override
-    public List<DsspBan> getList(Integer sttPage, Integer sizePage) {
+    public List<SaleOrderItem> getList(Integer sttPage, Integer sizePage) {
         String sql = "SELECT DISTINCT * FROM DsspBan WHERE 1=1 ORDER BY MotLuotBanid DESC, VatPhamid DESC OFFSET ? ROW FETCH NEXT ? ROW ONLY ";
         
-        List<DsspBan> dsT = new ArrayList<>();
+        List<SaleOrderItem> dsT = new ArrayList<>();
         
         try
         /*resource*/(
@@ -99,7 +101,7 @@ public class DsspBanRepo
             ResultSet rs = ps.executeQuery();
             
             while(rs.next()== true){
-                DsspBan t = this.getFromResultSet(rs);
+                SaleOrderItem t = this.getFromResultSet(rs);
                 dsT.add(t);
             }
             
@@ -112,7 +114,7 @@ public class DsspBanRepo
     }
 
     @Override
-    public DsspBan create(DsspBan t) {
+    public SaleOrderItem create(SaleOrderItem t) {
         String sql = "INSERT INTO DsspBan(VatPhamid, MotLuotBanid, soluong, gia) VALUES (?, ?, ?, ?);";
 
         // PK là FK nên không được set null
@@ -125,8 +127,8 @@ public class DsspBanRepo
         {
             ps.setLong(1, t.getId().getVatPhamid());
             ps.setLong(2, t.getId().getMotLuotBanid());
-            ps.setInt(3, t.getSoluong());
-            ps.setLong(4, t.getGia());
+            ps.setInt(3, t.getQuantity());
+            ps.setLong(4, t.getPrice());
             
             ps.executeUpdate();
             
@@ -141,7 +143,7 @@ public class DsspBanRepo
     }
     
     @Override
-    public DsspBan update(DsspBanId id, DsspBan t) {
+    public SaleOrderItem update(SaleOrderItemId id, SaleOrderItem t) {
         String sql = "UPDATE DsspBan SET soluong = ?, gia = ? WHERE VatPhamid = ? AND MotLuotBanid = ?;";
 
         
@@ -151,8 +153,8 @@ public class DsspBanRepo
             PreparedStatement ps = con.prepareStatement(sql);
         )
         {
-            ps.setInt(1, t.getSoluong());
-            ps.setLong(2, t.getGia());
+            ps.setInt(1, t.getQuantity());
+            ps.setLong(2, t.getPrice());
             ps.setLong(3, t.getId().getVatPhamid());
             ps.setLong(4, t.getId().getMotLuotBanid());
             
@@ -168,7 +170,7 @@ public class DsspBanRepo
     }
     
     @Override
-    public Boolean delete(DsspBanId id) {
+    public Boolean delete(SaleOrderItemId id) {
         String sql = "DELETE FROM DsspBan WHERE VatPhamid = ? AND MotLuotBanid = ?;";
         
         try
@@ -190,7 +192,7 @@ public class DsspBanRepo
         return false;   
     }
 
-    public Boolean deleteByVatphamid(Long vatPhamid){
+    public Boolean deleteByProductid(Long vatPhamid){
         String sql = "DELETE FROM DsspBan WHERE VatPhamid = ? ;";
         
         try
@@ -211,7 +213,7 @@ public class DsspBanRepo
         return false; 
     }
 
-    public Boolean deleteByMotluotbanid(Long motluotbanid){
+    public Boolean deleteBySaleTransactionid(Long motluotbanid){
         String sql = "DELETE FROM DsspBan WHERE MotLuotBanid = ?;";
         
         try
@@ -232,7 +234,7 @@ public class DsspBanRepo
         return false; 
     }
 
-    List<DsspBan> findByMotLuotBanId(Long motLuotBanId) {
+    public List<SaleOrderItem> findBySaleTransactionId(Long motLuotBanId) {
         String sql = "SELECT * FROM DsspBan WHERE MotLuotBanid=?;";
         try 
         /*resource*/ (
@@ -244,10 +246,10 @@ public class DsspBanRepo
 
             ResultSet rs = ps.executeQuery();
             
-            ArrayList<DsspBan> dsT = new ArrayList<>();
+            ArrayList<SaleOrderItem> dsT = new ArrayList<>();
             
             while(rs.next()== true){
-                DsspBan t = this.getFromResultSet(rs);
+                SaleOrderItem t = this.getFromResultSet(rs);
                 dsT.add(t);
             }
             

@@ -2,10 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.mavenproject3.Db.MotLuotNhap;
+package com.mycompany.mavenproject3.Db.PurschaseTransaction.Repository;
 
+import com.mycompany.mavenproject3.Db.PurschaseTransaction.Entity.PurschaseTransaction;
 import com.mycompany.mavenproject3.Db.Interface.RepoInterface;
-import com.mycompany.mavenproject3.Db.MotLuotBan.MotLuotBan;
+import com.mycompany.mavenproject3.Db.SaleTransaction.Entity.SaleTransaction;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -22,14 +23,14 @@ import java.util.logging.Logger;
  *
  * @author azoom
  */
-public class MotLuotNhapRepo 
-        implements RepoInterface<MotLuotNhap, Long>
+public class PurschaseTransactionRepo 
+        implements RepoInterface<PurschaseTransaction, Long>
 {
     private static final String url= "jdbc:sqlserver://localhost:1433;databaseName=DemoJava6;encrypt=false;trustServerCertificate=true";
     private static final String username = "a0000";
     private static final String password = "a0000";
 
-    public MotLuotNhapRepo() {
+    public PurschaseTransactionRepo() {
     }
 
     @Override
@@ -38,9 +39,9 @@ public class MotLuotNhapRepo
     }
 
     @Override
-    public MotLuotNhap getFromResultSet(ResultSet rs) {
+    public PurschaseTransaction getFromResultSet(ResultSet rs) {
         try {
-            MotLuotNhap t = new MotLuotNhap(
+            PurschaseTransaction t = new PurschaseTransaction(
                     rs.getLong("id"),
                     rs.getTimestamp("thoigian"),
                     rs.getBoolean("dathanhtoan"),
@@ -49,13 +50,13 @@ public class MotLuotNhapRepo
             return t;
         }
         catch (SQLException ex) {
-            Logger.getLogger(MotLuotNhapRepo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PurschaseTransactionRepo.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
     @Override
-    public MotLuotNhap findById(Long id) {
+    public PurschaseTransaction findById(Long id) {
         String sql = "SELECT id, thoigian, dathanhtoan, UseridNhanvien FROM MotLuotNhap WHERE id = ?;";
         try 
         /*resource*/ (
@@ -68,7 +69,7 @@ public class MotLuotNhapRepo
             ResultSet rs = ps.executeQuery();
             
             if(rs.next()==true ){
-                MotLuotNhap t= this.getFromResultSet(rs);
+                PurschaseTransaction t= this.getFromResultSet(rs);
                 return t;
             }
             
@@ -81,10 +82,10 @@ public class MotLuotNhapRepo
     }
 
     @Override
-    public List<MotLuotNhap> getList(Integer sttPage, Integer sizePage) {
+    public List<PurschaseTransaction> getList(Integer sttPage, Integer sizePage) {
         String sql = "SELECT DISTINCT * FROM MotLuotNhap WHERE 1=1 ORDER BY id DESC OFFSET ? ROW FETCH NEXT ? ROW ONLY ";
         
-        List<MotLuotNhap> dsT = new ArrayList<>();
+        List<PurschaseTransaction> dsT = new ArrayList<>();
         
         try
         /*resource*/(
@@ -98,7 +99,7 @@ public class MotLuotNhapRepo
             ResultSet rs = ps.executeQuery();
             
             while(rs.next()== true){
-                MotLuotNhap t = this.getFromResultSet(rs);
+                PurschaseTransaction t = this.getFromResultSet(rs);
                 dsT.add(t);
             }
             
@@ -111,7 +112,7 @@ public class MotLuotNhapRepo
     }
 
     @Override
-    public MotLuotNhap create(MotLuotNhap t) {
+    public PurschaseTransaction create(PurschaseTransaction t) {
         String sql = "INSERT INTO MotLuotNhap(thoigian, dathanhtoan, UseridNhanvien) VALUES (?, ?, ?);";
 
         t.setId(null);
@@ -122,9 +123,9 @@ public class MotLuotNhapRepo
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         )
         {
-            ps.setTimestamp(1, t.getThoigian());
-            ps.setBoolean(2, t.getDathanhtoan());
-            ps.setLong(3, t.getUseridNhanvien());
+            ps.setTimestamp(1, t.getTimestamp());
+            ps.setBoolean(2, t.getIsPaid());
+            ps.setLong(3, t.getUseridEmployee());
             
             ps.executeUpdate();
             
@@ -146,7 +147,7 @@ public class MotLuotNhapRepo
     }
 
     @Override
-    public MotLuotNhap update(Long id, MotLuotNhap t) {
+    public PurschaseTransaction update(Long id, PurschaseTransaction t) {
         t.setId(id);
         
         String sql = "UPDATE MotLuotNhap SET thoigian = ?, dathanhtoan = ?, UseridNhanvien = ? WHERE id = ?;";
@@ -157,9 +158,9 @@ public class MotLuotNhapRepo
             PreparedStatement ps = con.prepareStatement(sql);
         )
         {
-            ps.setTimestamp(1, t.getThoigian());
-            ps.setBoolean(2, t.getDathanhtoan());
-            ps.setLong(3, t.getUseridNhanvien());
+            ps.setTimestamp(1, t.getTimestamp());
+            ps.setBoolean(2, t.getIsPaid());
+            ps.setLong(3, t.getUseridEmployee());
             
             ps.setLong(4, t.getId());
             
@@ -195,7 +196,7 @@ public class MotLuotNhapRepo
         return false;
     }
     
-    public List<MotLuotNhap> findByTime(Timestamp from, Timestamp to){
+    public List<PurschaseTransaction> findByTime(Timestamp from, Timestamp to){
         String sql="""
                     SELECT 
                         *
@@ -205,7 +206,7 @@ public class MotLuotNhapRepo
                     ;
         """;
         
-        List<MotLuotNhap> dsT = new ArrayList<>();
+        List<PurschaseTransaction> dsT = new ArrayList<>();
         
         try
         /*resource*/(
@@ -219,7 +220,7 @@ public class MotLuotNhapRepo
             ResultSet rs = ps.executeQuery();
             
             while(rs.next()== true){
-                MotLuotNhap t = this.getFromResultSet(rs);
+                PurschaseTransaction t = this.getFromResultSet(rs);
                 dsT.add(t);
             }
             

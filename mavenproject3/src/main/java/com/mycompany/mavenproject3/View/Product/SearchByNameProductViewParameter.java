@@ -2,19 +2,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.mavenproject3.ControllerAndView.VatPham;
+package com.mycompany.mavenproject3.View.Product;
 
 /**
  *
  * @author azoom
  */
-public class SearchByNameVatPhamViewParameter {
+public class SearchByNameProductViewParameter {
     private String nameKeyword;
 
-    public SearchByNameVatPhamViewParameter() {
+    public SearchByNameProductViewParameter() {
     }
 
-    public SearchByNameVatPhamViewParameter(String nameKeyword) {
+    public SearchByNameProductViewParameter(String nameKeyword) {
         this.nameKeyword = nameKeyword;
     }
 

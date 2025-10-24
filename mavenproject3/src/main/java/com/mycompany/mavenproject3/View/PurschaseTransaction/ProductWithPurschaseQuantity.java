@@ -2,25 +2,24 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.mavenproject3.ControllerAndView.MotLuotNhap;
+package com.mycompany.mavenproject3.View.PurschaseTransaction;
 
-import com.mycompany.mavenproject3.ControllerAndView.MotLuotBan.*;
-import com.mycompany.mavenproject3.Db.VatPham.VatPham;
+import com.mycompany.mavenproject3.Db.Product.Entity.Product;
 
 /**
  *
  * @author azoom
  */
-public class VatPhamWithSoLuongNhap {
-    private VatPham vatPham;
+public class ProductWithPurschaseQuantity {
+    private Product vatPham;
     private Integer soLuongNhap;
 
-    public VatPhamWithSoLuongNhap(VatPham vatPham, Integer soLuong) {
+    public ProductWithPurschaseQuantity(Product vatPham, Integer soLuong) {
         this.vatPham = vatPham;
         this.soLuongNhap = soLuong;
     }
 
-    public VatPham getVatPham() {
+    public Product getVatPham() {
         return vatPham;
     }
 

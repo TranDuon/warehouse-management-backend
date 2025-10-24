@@ -2,12 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.mycompany.mavenproject3.ControllerAndView.VatPham;
+package com.mycompany.mavenproject3.View.Product;
 
-import com.mycompany.mavenproject3.ControllerAndView.Interface.ViewHasChosenObjectInterface;
-import com.mycompany.mavenproject3.ControllerAndView.Interface.ViewHasListObjectInterface;
-import com.mycompany.mavenproject3.ControllerAndView.Interface.ViewHasParameterObject;
-import com.mycompany.mavenproject3.Db.VatPham.VatPham;
+import com.mycompany.mavenproject3.View.Interface.ViewHasChosenObjectInterface;
+import com.mycompany.mavenproject3.View.Interface.ViewHasListObjectInterface;
+import com.mycompany.mavenproject3.View.Interface.ViewHasParameterObject;
+import com.mycompany.mavenproject3.Db.Product.Entity.Product;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,20 +17,20 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author azoom
  */
-public class SearchByNameVatPhamView 
+public class SearchByNameProductView 
         extends javax.swing.JFrame 
         implements 
-            ViewHasListObjectInterface<VatPham>,
-            ViewHasChosenObjectInterface<VatPham>,
-            ViewHasParameterObject<SearchByNameVatPhamViewParameter>
+            ViewHasListObjectInterface<Product>,
+            ViewHasChosenObjectInterface<Product>,
+            ViewHasParameterObject<SearchByNameProductViewParameter>
 {
-    private List<VatPham> dsO;
-    private SearchByNameVatPhamViewParameter p;
+    private List<Product> dsO;
+    private SearchByNameProductViewParameter p;
 
     /**
      * Creates new form SearchVatPhamByNameView
      */
-    public SearchByNameVatPhamView() {
+    public SearchByNameProductView() {
         initComponents();
     }
 
@@ -54,19 +54,19 @@ public class SearchByNameVatPhamView
     }
     
     @Override
-    public void setListObjectAndReload(List<VatPham> dsT) {
+    public void setListObjectAndReload(List<Product> dsT) {
         this.dsO = dsT;
         this.reloadListObjectOnView();
     }
 
     @Override
-    public List<VatPham> getListObjectFromView() {
+    public List<Product> getListObjectFromView() {
         DefaultTableModel model = (DefaultTableModel) this.table.getModel();
         Integer sohang = model.getRowCount();
         
-        List<VatPham> list = new ArrayList<>();
+        List<Product> list = new ArrayList<>();
         for(int i=0; i<sohang; i++){
-            VatPham t = new VatPham(
+            Product t = new Product(
                     Long.valueOf(model.getValueAt(i, 0).toString()),
                     (String) model.getValueAt(i, 1),
                     Long.valueOf(model.getValueAt(i, 2).toString()),
@@ -86,15 +86,15 @@ public class SearchByNameVatPhamView
         DefaultTableModel model = (DefaultTableModel) this.table.getModel();
         model.setRowCount(0);
         
-        for(VatPham o : dsO){
+        for(Product o : dsO){
             model.addRow(
                     new Object[]{
                         o.getId(),
-                        o.getTen(),
-                        o.getGia(),
-                        o.getDonvi(),
-                        o.getMota(),
-                        o.getSoluong()
+                        o.getName(),
+                        o.getPrice(),
+                        o.getUnit(),
+                        o.getDescription(),
+                        o.getQuantity()
                     } 
             );
             //"id", "ten", "gia", "don vi", "mo ta", "so luong"            
@@ -106,12 +106,12 @@ public class SearchByNameVatPhamView
     
 
     @Override
-    public VatPham getChosenObject() {
+    public Product getChosenObject() {
         Integer sttHangDaChon = this.table.getSelectedRow();
         if(sttHangDaChon!=-1){
             DefaultTableModel model = (DefaultTableModel) this.table.getModel();
             
-            VatPham t = new VatPham(
+            Product t = new Product(
                     Long.valueOf(model.getValueAt(sttHangDaChon, 0).toString()),
                     (String) model.getValueAt(sttHangDaChon, 1),
                     Long.valueOf(model.getValueAt(sttHangDaChon, 2).toString()),
@@ -126,14 +126,14 @@ public class SearchByNameVatPhamView
     }
 
     @Override
-    public SearchByNameVatPhamViewParameter getParameterFromView() {
-        return new SearchByNameVatPhamViewParameter(
+    public SearchByNameProductViewParameter getParameterFromView() {
+        return new SearchByNameProductViewParameter(
                 this.nameKeyword.getText()
         );
     }
 
     @Override
-    public void setParameterAndReload(SearchByNameVatPhamViewParameter t) {
+    public void setParameterAndReload(SearchByNameProductViewParameter t) {
         this.p = t;
         this.reloadListObjectOnView();
     }
@@ -202,9 +202,6 @@ public class SearchByNameVatPhamView
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -216,6 +213,7 @@ public class SearchByNameVatPhamView
                     .addComponent(jLabel2)
                     .addComponent(getDetails))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -254,21 +252,23 @@ public class SearchByNameVatPhamView
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SearchByNameVatPhamView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SearchByNameProductView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SearchByNameVatPhamView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SearchByNameProductView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SearchByNameVatPhamView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SearchByNameProductView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SearchByNameVatPhamView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SearchByNameProductView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SearchByNameVatPhamView().setVisible(true);
+                new SearchByNameProductView().setVisible(true);
             }
         });
     }

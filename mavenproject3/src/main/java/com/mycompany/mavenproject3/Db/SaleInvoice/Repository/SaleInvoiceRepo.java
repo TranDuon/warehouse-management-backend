@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.mavenproject3.Db.HoaDonBan;
+package com.mycompany.mavenproject3.Db.SaleInvoice.Repository;
 
+import com.mycompany.mavenproject3.Db.SaleInvoice.Entity.SaleInvoice;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -19,14 +20,14 @@ import com.mycompany.mavenproject3.Db.Interface.RepoInterface;
  *
  * @author azoom
  */
-public class HoaDonBanRepo 
-        implements RepoInterface<HoaDonBan, Long>
+public class SaleInvoiceRepo 
+        implements RepoInterface<SaleInvoice, Long>
 {
     private static final String url= "jdbc:sqlserver://localhost:1433;databaseName=DemoJava6;encrypt=false;trustServerCertificate=true";
     private static final String username = "a0000";
     private static final String password = "a0000";
 
-    public HoaDonBanRepo() {
+    public SaleInvoiceRepo() {
     }
 
     @Override
@@ -35,9 +36,9 @@ public class HoaDonBanRepo
     }
 
     @Override
-    public HoaDonBan getFromResultSet(ResultSet rs) {
+    public SaleInvoice getFromResultSet(ResultSet rs) {
         try {
-            HoaDonBan t = new HoaDonBan(
+            SaleInvoice t = new SaleInvoice(
                 rs.getLong("id"),
                 rs.getTimestamp("thoigian"),
                 rs.getLong("sotien"),
@@ -53,7 +54,7 @@ public class HoaDonBanRepo
     }
 
     @Override
-    public HoaDonBan findById(Long id) {
+    public SaleInvoice findById(Long id) {
         String sql = "SELECT id, thoigian, sotien, lathanhtoantienmat, MotLuotBanid FROM HoaDonBan WHERE id =? ;";
         try 
         /*resource*/ (
@@ -66,7 +67,7 @@ public class HoaDonBanRepo
             ResultSet rs = ps.executeQuery();
             
             if(rs.next()==true ){
-                HoaDonBan t= this.getFromResultSet(rs);
+                SaleInvoice t= this.getFromResultSet(rs);
                 return t;
             }
             
@@ -79,10 +80,10 @@ public class HoaDonBanRepo
     }
 
     @Override
-    public List<HoaDonBan> getList(Integer sttPage, Integer sizePage) {
+    public List<SaleInvoice> getList(Integer sttPage, Integer sizePage) {
         String sql = "SELECT DISTINCT * FROM HoaDonBan WHERE 1=1 ORDER BY id DESC OFFSET ? ROW FETCH NEXT ? ROW ONLY ";
         
-        List<HoaDonBan> dsT = new ArrayList<>();
+        List<SaleInvoice> dsT = new ArrayList<>();
         
         try
         /*resource*/(
@@ -96,7 +97,7 @@ public class HoaDonBanRepo
             ResultSet rs = ps.executeQuery();
             
             while(rs.next()== true){
-                HoaDonBan t = this.getFromResultSet(rs);
+                SaleInvoice t = this.getFromResultSet(rs);
                 dsT.add(t);
             }
             
@@ -109,7 +110,7 @@ public class HoaDonBanRepo
     }
 
     @Override
-    public HoaDonBan create(HoaDonBan t) {
+    public SaleInvoice create(SaleInvoice t) {
         String sql = "INSERT INTO HoaDonBan(thoigian, sotien, lathanhtoantienmat, MotLuotBanid) VALUES (?, ?, ?, ?);";
 
         t.setId(null);
@@ -120,10 +121,10 @@ public class HoaDonBanRepo
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         )
         {
-            ps.setTimestamp(1, t.getThoigian());
-            ps.setLong(2, t.getSotien());
-            ps.setBoolean(3, t.getLathanhtoantienmat());
-            ps.setLong(4, t.getMotluotbanid());
+            ps.setTimestamp(1, t.getTimestamp());
+            ps.setLong(2, t.getAmount());
+            ps.setBoolean(3, t.getIsCashPayment());
+            ps.setLong(4, t.getSaleTransactionId());
             
             ps.executeUpdate();
             
@@ -145,7 +146,7 @@ public class HoaDonBanRepo
     }
 
     @Override
-    public HoaDonBan update(Long id, HoaDonBan t) {
+    public SaleInvoice update(Long id, SaleInvoice t) {
         t.setId(id);
         
         String sql = "UPDATE HoaDonBan SET thoigian = ?, sotien = ?, lathanhtoantienmat = ?, MotLuotBanid = ? WHERE id = ?;";
@@ -156,10 +157,10 @@ public class HoaDonBanRepo
             PreparedStatement ps = con.prepareStatement(sql);
         )
         {
-            ps.setTimestamp(1, t.getThoigian());
-            ps.setLong(2, t.getSotien());
-            ps.setBoolean(3, t.getLathanhtoantienmat());
-            ps.setLong(4, t.getMotluotbanid());
+            ps.setTimestamp(1, t.getTimestamp());
+            ps.setLong(2, t.getAmount());
+            ps.setBoolean(3, t.getIsCashPayment());
+            ps.setLong(4, t.getSaleTransactionId());
             
             ps.setLong(5, t.getId());
             

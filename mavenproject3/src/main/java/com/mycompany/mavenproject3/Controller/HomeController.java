@@ -2,16 +2,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.mavenproject3.ControllerAndView.Home;
+package com.mycompany.mavenproject3.Controller;
 
-import com.mycompany.mavenproject3.ControllerAndView.Interface.ControllerInterface;
-import com.mycompany.mavenproject3.ControllerAndView.Login.LoginController;
-import com.mycompany.mavenproject3.ControllerAndView.Login.LoginView;
-import com.mycompany.mavenproject3.ControllerAndView.MotLuotBan.MotLuotBanController;
-import com.mycompany.mavenproject3.ControllerAndView.MotLuotNhap.MotLuotNhapController;
-import com.mycompany.mavenproject3.ControllerAndView.VatPham.VatPhamController;
-import com.mycompany.mavenproject3.Db.User.User;
-import com.mycompany.mavenproject3.Db.VatPham.VatPham;
+import com.mycompany.mavenproject3.Controller.ControllerInterface;
+import com.mycompany.mavenproject3.Controller.LoginController;
+import com.mycompany.mavenproject3.View.Login.LoginView;
+import com.mycompany.mavenproject3.Controller.SaleTransactionController;
+import com.mycompany.mavenproject3.Controller.PurschaseTransactionController;
+import com.mycompany.mavenproject3.Controller.ProductController;
+import com.mycompany.mavenproject3.Db.User.Entity.User;
+import com.mycompany.mavenproject3.Db.Product.Entity.Product;
+import com.mycompany.mavenproject3.View.Home.HomeView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -30,9 +31,9 @@ public class HomeController
     private HomeView homeView;
     
     // controller liên kết với controller này
-    private VatPhamController vatPhamController;
-    private MotLuotBanController motLuotBanController;
-    private MotLuotNhapController motLuotNhapController;
+    private ProductController vatPhamController;
+    private SaleTransactionController motLuotBanController;
+    private SaleTransactionController motLuotNhapController;
 
     public HomeController(User user) {
         this.user = user;
@@ -40,13 +41,13 @@ public class HomeController
         
         this.homeView = new HomeView();
         
-        this.vatPhamController = new VatPhamController(user);
+        this.vatPhamController = new ProductController(user);
         this.homeView.add_Listener_VatPham_Button(new Listener_HomeView_WhenClick_VatPham());
         
-        this.motLuotBanController = new MotLuotBanController(user);
+        this.motLuotBanController = new SaleTransactionController(user);
         this.homeView.add_Listener_MotLuotBan_Button(new Listener_HomeView_WhenClick_MotLuotBan());
         
-        this.motLuotNhapController = new MotLuotNhapController(user);
+        this.motLuotNhapController = new SaleTransactionController(user);
         this.homeView.add_Listener_MotLuotNhap_Button(new Listener_HomeView_WhenClick_MotLuotNhap());
         
         this.homeView.showView();

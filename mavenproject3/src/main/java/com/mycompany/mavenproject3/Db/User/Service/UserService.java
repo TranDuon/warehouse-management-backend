@@ -2,12 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.mavenproject3.Db.User;
+package com.mycompany.mavenproject3.Db.User.Service;
 
+import com.mycompany.mavenproject3.Db.User.Repository.UserRepo;
+import com.mycompany.mavenproject3.Db.User.Entity.User;
 import java.util.List;
 
 
 import com.mycompany.mavenproject3.Db.Interface.ServiceInterface;
+import com.mycompany.mavenproject3.Db.User.Dto.UserDto;
 
 /**
  *

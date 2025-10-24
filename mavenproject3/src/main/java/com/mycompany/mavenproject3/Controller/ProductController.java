@@ -2,13 +2,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.mavenproject3.ControllerAndView.VatPham;
+package com.mycompany.mavenproject3.Controller;
 
-import com.mycompany.mavenproject3.ControllerAndView.Home.HomeController;
-import com.mycompany.mavenproject3.ControllerAndView.Interface.ControllerInterface;
-import com.mycompany.mavenproject3.Db.User.User;
-import com.mycompany.mavenproject3.Db.VatPham.VatPham;
-import com.mycompany.mavenproject3.Db.VatPham.VatPhamService;
+import com.mycompany.mavenproject3.Controller.HomeController;
+import com.mycompany.mavenproject3.Controller.ControllerInterface;
+import com.mycompany.mavenproject3.Db.User.Entity.User;
+import com.mycompany.mavenproject3.Db.Product.Entity.Product;
+import com.mycompany.mavenproject3.Db.Product.Service.ProductService;
+import com.mycompany.mavenproject3.View.Product.CreateProductView;
+import com.mycompany.mavenproject3.View.Product.DeleteProductView;
+import com.mycompany.mavenproject3.View.Product.DetailsProductView;
+import com.mycompany.mavenproject3.View.Product.ListProductView;
+import com.mycompany.mavenproject3.View.Product.ListProductViewParameter;
+import com.mycompany.mavenproject3.View.Product.ProductView;
+import com.mycompany.mavenproject3.View.Product.SearchByNameProductView;
+import com.mycompany.mavenproject3.View.Product.SearchByNameProductViewParameter;
+import com.mycompany.mavenproject3.View.Product.UpdateProductView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -17,66 +26,66 @@ import java.util.List;
  *
  * @author azoom
  */
-public class VatPhamController 
+public class ProductController 
         implements ControllerInterface
 {
     // thuộc tính dùng chung
     private User user;
-    private VatPhamService vatPhamService;
+    private ProductService productService;
     
     // view do controller này quản lý
-    private VatPhamView vatPhamView;
-    private CreateVatPhamView createView;
-    private DeleteVatPhamView deleteView;
-    private DetailsVatPhamView detailsView;
-    private ListVatPhamView listView;
-    private SearchByNameVatPhamView searchByNameView;
-    private UpdateVatPhamView updateView;
+    private ProductView productView;
+    private CreateProductView createProductView;
+    private DeleteProductView deleteProductView;
+    private DetailsProductView detailsProductView;
+    private ListProductView listProductView;
+    private SearchByNameProductView searchByNameProductView;
+    private UpdateProductView updateProductView;
     
 
 
-    public VatPhamController(User user) {
+    public ProductController(User user) {
         this.user = user;
-        this.vatPhamService = new VatPhamService();
+        this.productService = new ProductService();
         
-        this.vatPhamView = new VatPhamView();
-        this.vatPhamView.add_Listener_Create_Button(new Listener_VatPhamView_WhenClick_Create());
-        this.vatPhamView.add_Listener_GetList_Button(new Listener_VatPhamView_WhenClick_GetList());
-        this.vatPhamView.add_Listener_SearchByName_Button(new Listener_VatPhamView_WhenClick_SearchByName());
+        this.productView = new ProductView();
+        this.productView.add_Listener_Create_Button(new Listener_ProductView_WhenClick_Create());
+        this.productView.add_Listener_GetList_Button(new Listener_ProductView_WhenClick_GetList());
+        this.productView.add_Listener_SearchByName_Button(new Listener_ProductView_WhenClick_SearchByName());
         
-        this.createView = new CreateVatPhamView();
-        this.createView.add_Listener_Create_Button(new Listener_CreateView_WhenClick_Create());
-        this.createView.add_Listener_Cacel_Button(new Listener_CreateView_WhenClick_Cancel());
+        this.createProductView = new CreateProductView();
+        this.createProductView.add_Listener_Create_Button(new Listener_CreateProductView_WhenClick_Create());
+        this.createProductView.add_Listener_Cacel_Button(new Listener_CreateProductView_WhenClick_Cancel());
                 
-        this.deleteView = new DeleteVatPhamView();
-        this.deleteView.add_Listener_Delete_Button(new Listener_DeleteView_WhenClick_Delete());
-        this.deleteView.add_Listener_Cancel_Button(new Listener_DeleteView_WhenClick_Cancel());
+        this.deleteProductView = new DeleteProductView();
+        this.deleteProductView.add_Listener_Delete_Button(new Listener_DeleteProductView_WhenClick_Delete());
+        this.deleteProductView.add_Listener_Cancel_Button(new Listener_DeleteProductView_WhenClick_Cancel());
         
-        this.detailsView = new DetailsVatPhamView();
-        this.detailsView.add_Listener_Remove_Button(new Listener_DetailsView_WhenClick_Remove());
-        this.detailsView.add_Listener_Update_Button(new Listener_DetailsView_WhenClick_Update());
+        this.detailsProductView = new DetailsProductView();
+        this.detailsProductView.add_Listener_Remove_Button(new Listener_DetailsProductView_WhenClick_Remove());
+        this.detailsProductView.add_Listener_Update_Button(new Listener_DetailsProductView_WhenClick_Update());
         
-        this.listView = new ListVatPhamView();
-        this.listView.add_Listener_GetDetails_Button(new Listener_ListView_WhenClick_GetDetails());
-        this.listView.add_Listener_GetList_Button(new Listener_ListView_WhenClick_GetList());
+        this.listProductView = new ListProductView();
+        this.listProductView.add_Listener_GetDetails_Button(new Listener_ListProductView_WhenClick_GetDetails());
+        this.listProductView.add_Listener_GetList_Button(new Listener_ListProductView_WhenClick_GetList());
         
-        this.searchByNameView = new SearchByNameVatPhamView();
-        this.searchByNameView.add_Listener_Button_Search(new Listener_SearchByNameView_WhenClick_Search());
-        this.searchByNameView.add_Listener_Button_GetDetails(new Listener_SearchByNameView_WhenClick_GetDetails());
+        this.searchByNameProductView = new SearchByNameProductView();
+        this.searchByNameProductView.add_Listener_Button_Search(new Listener_SearchByNameProductView_WhenClick_Search());
+        this.searchByNameProductView.add_Listener_Button_GetDetails(new Listener_SearchByNameProductView_WhenClick_GetDetails());
         
-        this.updateView = new UpdateVatPhamView();
-        this.updateView.add_Listener_Button_Update(new Listener_Update_WhenClick_Update());
-        this.updateView.add_Listener_Button_Cancel(new Listener_Update_WhenClick_Cancel());
+        this.updateProductView = new UpdateProductView();
+        this.updateProductView.add_Listener_Button_Update(new Listener_SearchByNameProductView_WhenClick_Update());
+        this.updateProductView.add_Listener_Button_Cancel(new Listener_SearchByNameProductView_WhenClick_Cancel());
     }
 
     @Override
     public void showMainView() {
-        this.vatPhamView.showView();
+        this.productView.showView();
     }
 
     @Override
     public void hideMainView() {
-        this.vatPhamView.hideView();
+        this.productView.hideView();
     }
     
     /*
@@ -87,32 +96,32 @@ public class VatPhamController
     
     */    
     
-// 🟩🟩🟩🟩🟩 listener của VatPhamView
-class Listener_VatPhamView_WhenClick_Create implements ActionListener {
+// 🟩🟩🟩🟩🟩 listener của ProductView
+class Listener_ProductView_WhenClick_Create implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        vatPhamView.hideView();
-        createView.showView();
+        productView.hideView();
+        createProductView.showView();
     }
 }
 
-class Listener_VatPhamView_WhenClick_GetList implements ActionListener{
+class Listener_ProductView_WhenClick_GetList implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        vatPhamView.hideView();
-        listView.showView();
+        productView.hideView();
+        listProductView.showView();
     }
 
 }
 
-class Listener_VatPhamView_WhenClick_SearchByName implements ActionListener{
+class Listener_ProductView_WhenClick_SearchByName implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        vatPhamView.hideView();
-        searchByNameView.showView();
+        productView.hideView();
+        searchByNameProductView.showView();
     }
 
 }
@@ -120,56 +129,56 @@ class Listener_VatPhamView_WhenClick_SearchByName implements ActionListener{
 
 
 // 🟩🟩🟩🟩🟩 listener của Create View  
-class Listener_CreateView_WhenClick_Create  implements ActionListener {
+class Listener_CreateProductView_WhenClick_Create  implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        VatPham t = createView.getObjectFromView();
-        t = vatPhamService.create(t);
+        Product t = createProductView.getObjectFromView();
+        t = productService.create(t);
 
-        createView.deleteContent();
-        detailsView.setObjectAndReload(t);
+        createProductView.deleteContent();
+        detailsProductView.setObjectAndReload(t);
 
         // createView.hideView();
-        detailsView.showView();
+        detailsProductView.showView();
 
     }
-}
+    }
 
-class Listener_CreateView_WhenClick_Cancel  implements ActionListener {
+class Listener_CreateProductView_WhenClick_Cancel  implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        createView.hideView();
-        createView.deleteContent();
+        createProductView.hideView();
+        createProductView.deleteContent();
 
-        vatPhamView.deleteContent();
-        vatPhamView.showView();
+        productView.deleteContent();
+        productView.showView();
     }
 }
 
 // 🟩🟩🟩🟩🟩 listener của Delete View
-class Listener_DeleteView_WhenClick_Delete  implements ActionListener {
+class Listener_DeleteProductView_WhenClick_Delete  implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        VatPham t = deleteView.getObjectFromView();
-        vatPhamService.delete(t.getId());
-        deleteView.hideView();
-        deleteView.deleteContent();
+        Product t = deleteProductView.getObjectFromView();
+        productService.delete(t.getId());
+        deleteProductView.hideView();
+        deleteProductView.deleteContent();
 
         // vatPhamView.deleteContent();
         // vatPhamView.showView();
     }
-}
+    }
 
-class Listener_DeleteView_WhenClick_Cancel  implements ActionListener {
+class Listener_DeleteProductView_WhenClick_Cancel  implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        deleteView.hideView();
-        deleteView.deleteContent();
+        deleteProductView.hideView();
+        deleteProductView.deleteContent();
 
         // vatPhamView.deleteContent();
         // vatPhamView.showView();
@@ -177,110 +186,110 @@ class Listener_DeleteView_WhenClick_Cancel  implements ActionListener {
 }
 
 // 🟩🟩🟩🟩🟩 listener của Details View
-class Listener_DetailsView_WhenClick_Update implements ActionListener {
+class Listener_DetailsProductView_WhenClick_Update implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent a) {
         // detailsView.hideView();
 
-        VatPham t = detailsView.getObjectFromView();
-        t = vatPhamService.findById(t.getId());
+        Product t = detailsProductView.getObjectFromView();
+        t = productService.findById(t.getId());
 
-        updateView.setObjectAndReload(t);
-        updateView.showView();
+        updateProductView.setObjectAndReload(t);
+        updateProductView.showView();
 
     }
-}
+    }
 
-class Listener_DetailsView_WhenClick_Remove implements ActionListener {
+class Listener_DetailsProductView_WhenClick_Remove implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent a) {
         // detailsView.hideView();
 
-        VatPham t = detailsView.getObjectFromView();
-        t = vatPhamService.findById(t.getId());
+        Product t = detailsProductView.getObjectFromView();
+        t = productService.findById(t.getId());
 
-        deleteView.setObjectAndReload(t);
-        deleteView.showView();
+        deleteProductView.setObjectAndReload(t);
+        deleteProductView.showView();
     }
-}
+    }
 
 // 🟩🟩🟩🟩🟩 listener của List View
-class Listener_ListView_WhenClick_GetList implements ActionListener {
+class Listener_ListProductView_WhenClick_GetList implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent a) {
-        ListVatPhamViewParameter p = listView.getParameterFromView();
-        List<VatPham> dsT = vatPhamService.getList(p.getSttPage(), p.getSizePage());
-        listView.setListObjectAndReload(dsT);
+        ListProductViewParameter p = listProductView.getParameterFromView();
+        List<Product> dsT = productService.getList(p.getPageNum(), p.getSizePage());
+        listProductView.setListObjectAndReload(dsT);
     }
-}
+    }
 
-class Listener_ListView_WhenClick_GetDetails implements ActionListener {
+class Listener_ListProductView_WhenClick_GetDetails implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent a) {
-        VatPham t = listView.getChosenObject();
-        t = vatPhamService.findById(t.getId());
-        detailsView.deleteContent();
-        detailsView.setObjectAndReload(t);
-        detailsView.showView();
+        Product t = listProductView.getChosenObject();
+        t = productService.findById(t.getId());
+        detailsProductView.deleteContent();
+        detailsProductView.setObjectAndReload(t);
+        detailsProductView.showView();
     }
-}
+    }
 
 
 
 // 🟩🟩🟩🟩🟩 listener của SearchByName View
-class Listener_SearchByNameView_WhenClick_Search implements ActionListener {
+class Listener_SearchByNameProductView_WhenClick_Search implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent a) {
-        SearchByNameVatPhamViewParameter p = searchByNameView.getParameterFromView();
+        SearchByNameProductViewParameter p = searchByNameProductView.getParameterFromView();
         
-        List<VatPham> dsT = vatPhamService.findByName(p.getNameKeyword());
+        List<Product> dsT = productService.findByName(p.getNameKeyword());
         
-        searchByNameView.setListObjectAndReload(dsT);
+        searchByNameProductView.setListObjectAndReload(dsT);
     }
 
 }
 
-class Listener_SearchByNameView_WhenClick_GetDetails implements ActionListener {
+class Listener_SearchByNameProductView_WhenClick_GetDetails implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        VatPham t = searchByNameView.getChosenObject();
+        Product t = searchByNameProductView.getChosenObject();
         
-        detailsView.setObjectAndReload(t);
-        detailsView.showView();
+        detailsProductView.setObjectAndReload(t);
+        detailsProductView.showView();
     }
-}
+    }
 
 
 // 🟩🟩🟩🟩🟩 listener của Update View
-class Listener_Update_WhenClick_Update implements ActionListener {
+class Listener_SearchByNameProductView_WhenClick_Update implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        VatPham t = updateView.getObjectFromView();
+        Product t = updateProductView.getObjectFromView();
         
-        t = vatPhamService.update(t.getId(), t);
+        t = productService.update(t.getId(), t);
         
-        updateView.hideView();
-        detailsView.setObjectAndReload(t);
-        detailsView.showView();
+        updateProductView.hideView();
+        detailsProductView.setObjectAndReload(t);
+        detailsProductView.showView();
     }
 
 }
 
-class Listener_Update_WhenClick_Cancel implements ActionListener {
+class Listener_SearchByNameProductView_WhenClick_Cancel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        updateView.hideView();
-        updateView.deleteContent();
+        updateProductView.hideView();
+        updateProductView.deleteContent();
         
-        detailsView.showView();
+        detailsProductView.showView();
     }
 
 }

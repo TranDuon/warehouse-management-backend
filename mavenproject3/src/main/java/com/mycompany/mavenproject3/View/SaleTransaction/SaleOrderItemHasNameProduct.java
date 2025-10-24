@@ -2,29 +2,29 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.mavenproject3.ControllerAndView.MotLuotBan;
+package com.mycompany.mavenproject3.View.SaleTransaction;
 
-import com.mycompany.mavenproject3.Db.DsspBan.DsspBan;
+import com.mycompany.mavenproject3.Db.SaleOrderItem.Entity.SaleOrderItem;
 
 /**
  *
  * @author azoom
  */
-public class DsspBanHasNameProduct {
-    private DsspBan dsspBan;
-    private String ten;
+public class SaleOrderItemHasNameProduct {
+    private SaleOrderItem saleOrderItem;
+    private String name;
 
-    public DsspBanHasNameProduct(DsspBan dsspBan, String ten) {
-        this.dsspBan = dsspBan;
-        this.ten = ten;
+    public SaleOrderItemHasNameProduct(SaleOrderItem saleOrderItem, String name) {
+        this.saleOrderItem = saleOrderItem;
+        this.name = name;
     }
 
-    public DsspBan getDsspBan() {
-        return dsspBan;
+    public SaleOrderItem getSaleOrderItem() {
+        return saleOrderItem;
     }
 
-    public String getTen() {
-        return ten;
+    public String getName() {
+        return name;
     }
     
     

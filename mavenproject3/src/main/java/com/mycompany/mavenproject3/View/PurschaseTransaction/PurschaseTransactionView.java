@@ -2,17 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.mycompany.mavenproject3.ControllerAndView.MotLuotNhap;
+package com.mycompany.mavenproject3.View.PurschaseTransaction;
 
-import com.mycompany.mavenproject3.ControllerAndView.MotLuotBan.*;
-import com.mycompany.mavenproject3.ControllerAndView.Interface.ViewInterface;
+import com.mycompany.mavenproject3.View.Interface.ViewInterface;
 import java.awt.event.ActionListener;
 
 /**
  *
  * @author azoom
  */
-public class MotLuotNhapView 
+public class PurschaseTransactionView 
         extends javax.swing.JFrame 
         implements ViewInterface
 {
@@ -20,7 +19,7 @@ public class MotLuotNhapView
     /**
      * Creates new form MotLuotBanView
      */
-    public MotLuotNhapView() {
+    public PurschaseTransactionView() {
         initComponents();
     }
 
@@ -106,21 +105,27 @@ public class MotLuotNhapView
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MotLuotNhapView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PurschaseTransactionView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MotLuotNhapView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PurschaseTransactionView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MotLuotNhapView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PurschaseTransactionView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MotLuotNhapView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PurschaseTransactionView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MotLuotNhapView().setVisible(true);
+                new PurschaseTransactionView().setVisible(true);
             }
         });
     }

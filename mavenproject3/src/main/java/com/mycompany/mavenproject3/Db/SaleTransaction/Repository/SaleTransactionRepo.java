@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.mavenproject3.Db.MotLuotBan;
+package com.mycompany.mavenproject3.Db.SaleTransaction.Repository;
 
+import com.mycompany.mavenproject3.Db.SaleTransaction.Entity.SaleTransaction;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -23,14 +24,14 @@ import java.time.format.DateTimeFormatter;
  *
  * @author azoom
  */
-public class MotLuotBanRepo 
-        implements RepoInterface<MotLuotBan, Long>
+public class SaleTransactionRepo 
+        implements RepoInterface<SaleTransaction, Long>
 {
     private static final String url= "jdbc:sqlserver://localhost:1433;databaseName=DemoJava6;encrypt=false;trustServerCertificate=true";
     private static final String username = "a0000";
     private static final String password = "a0000";
 
-    public MotLuotBanRepo() {
+    public SaleTransactionRepo() {
     }
 
     @Override
@@ -39,9 +40,9 @@ public class MotLuotBanRepo
     }
 
     @Override
-    public MotLuotBan getFromResultSet(ResultSet rs) {
+    public SaleTransaction getFromResultSet(ResultSet rs) {
         try {
-            MotLuotBan t = new MotLuotBan(
+            SaleTransaction t = new SaleTransaction(
                 rs.getLong("id"),
                 rs.getTimestamp("thoigian"),
                 rs.getBoolean("dathanhtoan"),
@@ -56,7 +57,7 @@ public class MotLuotBanRepo
     }
 
     @Override
-    public MotLuotBan findById(Long id) {
+    public SaleTransaction findById(Long id) {
         String sql = "SELECT id, thoigian, dathanhtoan, UseridNhanvien FROM MotLuotBan WHERE id = ? ;";
         try 
         /*resource*/ (
@@ -69,7 +70,7 @@ public class MotLuotBanRepo
             ResultSet rs = ps.executeQuery();
             
             if(rs.next()==true ){
-                MotLuotBan t= this.getFromResultSet(rs);
+                SaleTransaction t= this.getFromResultSet(rs);
                 return t;
             }
             
@@ -82,10 +83,10 @@ public class MotLuotBanRepo
     }
 
     @Override
-    public List<MotLuotBan> getList(Integer sttPage, Integer sizePage) {
+    public List<SaleTransaction> getList(Integer sttPage, Integer sizePage) {
         String sql = "SELECT DISTINCT * FROM MotLuotBan WHERE 1=1 ORDER BY id DESC OFFSET ? ROW FETCH NEXT ? ROW ONLY ";
         
-        List<MotLuotBan> dsT = new ArrayList<>();
+        List<SaleTransaction> dsT = new ArrayList<>();
         
         try
         /*resource*/(
@@ -99,7 +100,7 @@ public class MotLuotBanRepo
             ResultSet rs = ps.executeQuery();
             
             while(rs.next()== true){
-                MotLuotBan t = this.getFromResultSet(rs);
+                SaleTransaction t = this.getFromResultSet(rs);
                 dsT.add(t);
             }
             
@@ -112,7 +113,7 @@ public class MotLuotBanRepo
     }
 
     @Override
-    public MotLuotBan create(MotLuotBan t) {
+    public SaleTransaction create(SaleTransaction t) {
         String sql = "INSERT INTO MotLuotBan(thoigian, dathanhtoan, UseridNhanvien) VALUES (?, ?, ?);";
 
         t.setId(null);
@@ -123,9 +124,9 @@ public class MotLuotBanRepo
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         )
         {
-            ps.setTimestamp(1, t.getThoigian());
-            ps.setBoolean(2, t.getDathanhtoan());
-            ps.setLong(3, t.getUseridNhanvien());
+            ps.setTimestamp(1, t.getTimestamp());
+            ps.setBoolean(2, t.getIsPaid());
+            ps.setLong(3, t.getUseridEmployee());
             
             ps.executeUpdate();
             
@@ -147,7 +148,7 @@ public class MotLuotBanRepo
     }
 
     @Override
-    public MotLuotBan update(Long id, MotLuotBan t) {
+    public SaleTransaction update(Long id, SaleTransaction t) {
         t.setId(id);
         
         String sql = "UPDATE MotLuotBan SET thoigian = ?, dathanhtoan = ?, UseridNhanvien = ? WHERE id = ?;";
@@ -158,9 +159,9 @@ public class MotLuotBanRepo
             PreparedStatement ps = con.prepareStatement(sql);
         )
         {
-            ps.setTimestamp(1, t.getThoigian());
-            ps.setBoolean(2, t.getDathanhtoan());
-            ps.setLong(3, t.getUseridNhanvien());
+            ps.setTimestamp(1, t.getTimestamp());
+            ps.setBoolean(2, t.getIsPaid());
+            ps.setLong(3, t.getUseridEmployee());
             
             ps.setLong(4, t.getId());
             
@@ -196,7 +197,7 @@ public class MotLuotBanRepo
         return false;
     }
     
-    public List<MotLuotBan> findByTime(Timestamp from, Timestamp to){
+    public List<SaleTransaction> findByTime(Timestamp from, Timestamp to){
         String sql="""
                     SELECT 
                         *
@@ -206,7 +207,7 @@ public class MotLuotBanRepo
                     ;
         """;
         
-        List<MotLuotBan> dsT = new ArrayList<>();
+        List<SaleTransaction> dsT = new ArrayList<>();
         
         try
         /*resource*/(
@@ -220,7 +221,7 @@ public class MotLuotBanRepo
             ResultSet rs = ps.executeQuery();
             
             while(rs.next()== true){
-                MotLuotBan t = this.getFromResultSet(rs);
+                SaleTransaction t = this.getFromResultSet(rs);
                 dsT.add(t);
             }
             
@@ -233,7 +234,7 @@ public class MotLuotBanRepo
     }
 
     public static void main(String[] args) {
-        MotLuotBanRepo motLuotBanRepo = new MotLuotBanRepo();
+        SaleTransactionRepo motLuotBanRepo = new SaleTransactionRepo();
         
         DateTimeFormatter dateTimeFormatter1 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         DateTimeFormatter dateTimeFormatter2 = DateTimeFormatter.ofPattern("HH:mm:ss dd/MM/yyyy");
@@ -241,10 +242,10 @@ public class MotLuotBanRepo
         Timestamp from = Timestamp.valueOf(LocalDateTime.parse("00:00:00 "+ "25/09/2025", dateTimeFormatter2) );
         Timestamp to = Timestamp.valueOf(LocalDateTime.parse("00:00:00 "+ "30/09/2025", dateTimeFormatter2) );
         
-        List<MotLuotBan> dsT = motLuotBanRepo.findByTime(from, to);
+        List<SaleTransaction> dsT = motLuotBanRepo.findByTime(from, to);
         
         System.out.println("{");
-        for(MotLuotBan t : dsT){
+        for(SaleTransaction t : dsT){
             System.out.println("     " + t.toString());
         }
         System.out.println("}");

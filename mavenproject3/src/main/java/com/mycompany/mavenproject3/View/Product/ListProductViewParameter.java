@@ -2,30 +2,30 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.mavenproject3.ControllerAndView.VatPham;
+package com.mycompany.mavenproject3.View.Product;
 
 /**
  *
  * @author azoom
  */
-public class ListVatPhamViewParameter {
-    private Integer sttPage;
+public class ListProductViewParameter {
+    private Integer pageNum;
     private Integer sizePage;
 
-    public ListVatPhamViewParameter() {
+    public ListProductViewParameter() {
     }
 
-    public ListVatPhamViewParameter(Integer sttPage, Integer sizePage) {
-        this.sttPage = sttPage;
+    public ListProductViewParameter(Integer sttPage, Integer sizePage) {
+        this.pageNum = sttPage;
         this.sizePage = sizePage;
     }
 
-    public Integer getSttPage() {
-        return sttPage;
+    public Integer getPageNum() {
+        return pageNum;
     }
 
-    public void setSttPage(Integer sttPage) {
-        this.sttPage = sttPage;
+    public void setPageNum(Integer pageNum) {
+        this.pageNum = pageNum;
     }
 
     public Integer getSizePage() {

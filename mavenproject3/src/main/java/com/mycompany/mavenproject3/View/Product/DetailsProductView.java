@@ -2,26 +2,26 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.mycompany.mavenproject3.ControllerAndView.VatPham;
+package com.mycompany.mavenproject3.View.Product;
 
-import com.mycompany.mavenproject3.ControllerAndView.Interface.ViewHasObjectInterface;
-import com.mycompany.mavenproject3.Db.VatPham.VatPham;
+import com.mycompany.mavenproject3.View.Interface.ViewHasObjectInterface;
+import com.mycompany.mavenproject3.Db.Product.Entity.Product;
 import java.awt.event.ActionListener;
 
 /**
  *
  * @author azoom
  */
-public class DetailsVatPhamView 
+public class DetailsProductView 
         extends javax.swing.JFrame 
-        implements ViewHasObjectInterface<VatPham>
+        implements ViewHasObjectInterface<Product>
 {
-    private VatPham o;
+    private Product o;
 
     /**
      * Creates new form DetailsVatPhamView
      */
-    public DetailsVatPhamView() {
+    public DetailsProductView() {
         initComponents();
     }
 
@@ -33,31 +33,31 @@ public class DetailsVatPhamView
     }
     
     @Override
-    public void setObjectAndReload(VatPham t) {
+    public void setObjectAndReload(Product t) {
         this.o = t;
         this.reloadObjectOnView();
     }
 
     @Override
-    public VatPham getObjectFromView() {
-        return new VatPham(
+    public Product getObjectFromView() {
+        return new Product(
                 Long.valueOf(this.id.getText()),
-                this.ten.getText(),
-                Long.valueOf(this.gia.getText()),
-                this.donvi.getText(),
-                this.mota.getText(),
-                Integer.valueOf(this.soluong.getText())
+                this.name.getText(),
+                Long.valueOf(this.price.getText()),
+                this.unit.getText(),
+                this.description.getText(),
+                Integer.valueOf(this.quantity.getText())
         );
     }
 
     @Override
     public void reloadObjectOnView() {
         this.id.setText(o.getId().toString());
-        this.ten.setText(o.getTen());
-        this.gia.setText(o.getGia().toString());
-        this.donvi.setText(o.getDonvi());
-        this.mota.setText(o.getMota());
-        this.soluong.setText(o.getSoluong().toString());
+        this.name.setText(o.getName());
+        this.price.setText(o.getPrice().toString());
+        this.unit.setText(o.getUnit());
+        this.description.setText(o.getDescription());
+        this.quantity.setText(o.getQuantity().toString());
     }
     
     
@@ -75,11 +75,11 @@ public class DetailsVatPhamView
     @Override
     public void deleteContent() {
         this.id.setText("");
-        this.ten.setText("");
-        this.gia.setText("");
-        this.donvi.setText("");
-        this.mota.setText("");
-        this.soluong.setText("");
+        this.name.setText("");
+        this.price.setText("");
+        this.unit.setText("");
+        this.description.setText("");
+        this.quantity.setText("");
     }
 
     
@@ -100,12 +100,12 @@ public class DetailsVatPhamView
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         id = new javax.swing.JTextField();
-        ten = new javax.swing.JTextField();
-        donvi = new javax.swing.JTextField();
-        soluong = new javax.swing.JTextField();
+        name = new javax.swing.JTextField();
+        unit = new javax.swing.JTextField();
+        quantity = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        mota = new javax.swing.JTextArea();
-        gia = new javax.swing.JTextField();
+        description = new javax.swing.JTextArea();
+        price = new javax.swing.JTextField();
         update = new javax.swing.JButton();
         remove = new javax.swing.JButton();
 
@@ -123,19 +123,19 @@ public class DetailsVatPhamView
 
         id.setEditable(false);
 
-        ten.setEditable(false);
+        name.setEditable(false);
 
-        donvi.setEditable(false);
+        unit.setEditable(false);
 
-        soluong.setEditable(false);
+        quantity.setEditable(false);
 
-        mota.setEditable(false);
-        mota.setColumns(20);
-        mota.setRows(5);
-        jScrollPane1.setViewportView(mota);
+        description.setEditable(false);
+        description.setColumns(20);
+        description.setRows(5);
+        jScrollPane1.setViewportView(description);
 
-        gia.setEditable(false);
-        gia.setEnabled(false);
+        price.setEditable(false);
+        price.setEnabled(false);
 
         update.setText("Update");
 
@@ -150,26 +150,32 @@ public class DetailsVatPhamView
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(update)
+                            .addComponent(remove))
+                        .addGap(0, 268, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
                             .addComponent(jLabel5)
                             .addComponent(jLabel6))
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(ten, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(donvi, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(gia, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(soluong, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(update)
-                    .addComponent(remove))
-                .addContainerGap(89, Short.MAX_VALUE))
+                                    .addComponent(quantity, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(1, 1, 1)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(unit, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,15 +187,15 @@ public class DetailsVatPhamView
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(ten, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(gia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(donvi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(unit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
@@ -197,7 +203,7 @@ public class DetailsVatPhamView
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(soluong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(quantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(update)
                 .addGap(9, 9, 9)
@@ -224,27 +230,27 @@ public class DetailsVatPhamView
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DetailsVatPhamView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DetailsProductView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DetailsVatPhamView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DetailsProductView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DetailsVatPhamView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DetailsProductView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DetailsVatPhamView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DetailsProductView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DetailsVatPhamView().setVisible(true);
+                new DetailsProductView().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField donvi;
-    private javax.swing.JTextField gia;
+    private javax.swing.JTextArea description;
     private javax.swing.JTextField id;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -253,10 +259,11 @@ public class DetailsVatPhamView
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea mota;
+    private javax.swing.JTextField name;
+    private javax.swing.JTextField price;
+    private javax.swing.JTextField quantity;
     private javax.swing.JButton remove;
-    private javax.swing.JTextField soluong;
-    private javax.swing.JTextField ten;
+    private javax.swing.JTextField unit;
     private javax.swing.JButton update;
     // End of variables declaration//GEN-END:variables
 }

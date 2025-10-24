@@ -2,10 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.mavenproject3.Db.DsspNhap;
+package com.mycompany.mavenproject3.Db.PurschaseOrderItem.Repository;
 
-import com.mycompany.mavenproject3.Db.DsspBan.DsspBan;
-import com.mycompany.mavenproject3.Db.DsspBan.DsspBanId;
+import com.mycompany.mavenproject3.Db.PurschaseOrderItem.Entity.PurschaseOrderItem;
+import com.mycompany.mavenproject3.Db.PurschaseOrderItem.Entity.PurschaseOrderItemId;
+import com.mycompany.mavenproject3.Db.SaleOrderItem.Entity.SaleOrderItem;
+import com.mycompany.mavenproject3.Db.SaleOrderItem.Entity.SaleOrderItemId;
 import com.mycompany.mavenproject3.Db.Interface.RepoInterface;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -19,8 +21,8 @@ import java.util.List;
  *
  * @author azoom
  */
-public class DsspNhapRepo 
-        implements RepoInterface<DsspNhap, DsspNhapId>
+public class PurschaseOrderItemRepo 
+        implements RepoInterface<PurschaseOrderItem, PurschaseOrderItemId>
 {
     private static final String url= "jdbc:sqlserver://localhost:1433;databaseName=DemoJava6;encrypt=false;trustServerCertificate=true";
     private static final String username = "a0000";
@@ -32,10 +34,10 @@ public class DsspNhapRepo
     }
 
     @Override
-    public DsspNhap getFromResultSet(ResultSet rs) {
+    public PurschaseOrderItem getFromResultSet(ResultSet rs) {
         try {
-            DsspNhap t = new DsspNhap(
-                new DsspNhapId(
+            PurschaseOrderItem t = new PurschaseOrderItem(
+                new PurschaseOrderItemId(
                     rs.getLong("VatPhamid"),
                     rs.getLong("MotLuotNhapid")
                 ),
@@ -51,7 +53,7 @@ public class DsspNhapRepo
     }
 
     @Override
-    public DsspNhap findById(DsspNhapId id) {
+    public PurschaseOrderItem findById(PurschaseOrderItemId id) {
         String sql = "SELECT VatPhamid, MotLuotNhapid, soluong, gia FROM DsspNhap WHERE VatPhamid=? AND MotLuotNhapid=?;";
         try 
         /*resource*/ (
@@ -59,13 +61,13 @@ public class DsspNhapRepo
             PreparedStatement ps = con.prepareStatement(sql);
         )
         {
-            ps.setLong(1, id.getVatPhamid());
-            ps.setLong(2, id.getMotLuotNhapid());
+            ps.setLong(1, id.getProductid());
+            ps.setLong(2, id.getPurschaseTransactionid());
 
             ResultSet rs = ps.executeQuery();
             
             if(rs.next()==true ){
-                DsspNhap t= this.getFromResultSet(rs);
+                PurschaseOrderItem t= this.getFromResultSet(rs);
                 return t;
             }
             
@@ -78,10 +80,10 @@ public class DsspNhapRepo
     }
 
     @Override
-    public List<DsspNhap> getList(Integer sttPage, Integer sizePage) {
+    public List<PurschaseOrderItem> getList(Integer sttPage, Integer sizePage) {
         String sql = "SELECT DISTINCT * FROM DsspNhap WHERE 1=1 ORDER BY MotLuotNhapid DESC, VatPhamid DESC OFFSET ? ROW FETCH NEXT ? ROW ONLY ";
         
-        List<DsspNhap> dsT = new ArrayList<>();
+        List<PurschaseOrderItem> dsT = new ArrayList<>();
         
         try
         /*resource*/(
@@ -95,7 +97,7 @@ public class DsspNhapRepo
             ResultSet rs = ps.executeQuery();
             
             while(rs.next()== true){
-                DsspNhap t = this.getFromResultSet(rs);
+                PurschaseOrderItem t = this.getFromResultSet(rs);
                 dsT.add(t);
             }
             
@@ -108,7 +110,7 @@ public class DsspNhapRepo
     }
 
     @Override
-    public DsspNhap create(DsspNhap t) {
+    public PurschaseOrderItem create(PurschaseOrderItem t) {
         String sql = "INSERT INTO DsspNhap(VatPhamid, MotLuotNhapid, soluong, gia) VALUES (?, ?, ?, ?);";
 
         // PK là FK nên không được set null
@@ -119,10 +121,10 @@ public class DsspNhapRepo
             PreparedStatement ps = con.prepareStatement(sql);
         )
         {
-            ps.setLong(1, t.getId().getVatPhamid());
-            ps.setLong(2, t.getId().getMotLuotNhapid());
-            ps.setInt(3, t.getSoluong());
-            ps.setLong(4, t.getGia());
+            ps.setLong(1, t.getId().getProductid());
+            ps.setLong(2, t.getId().getPurschaseTransactionid());
+            ps.setInt(3, t.getQuantity());
+            ps.setLong(4, t.getPrice());
             
             ps.executeUpdate();
             
@@ -137,7 +139,7 @@ public class DsspNhapRepo
     }
 
     @Override
-    public DsspNhap update(DsspNhapId id, DsspNhap t) {
+    public PurschaseOrderItem update(PurschaseOrderItemId id, PurschaseOrderItem t) {
         String sql = "UPDATE DsspNhap SET soluong = ?, gia = ? WHERE VatPhamid = ? AND MotLuotNhapid = ?;";
 
         
@@ -147,10 +149,10 @@ public class DsspNhapRepo
             PreparedStatement ps = con.prepareStatement(sql);
         )
         {
-            ps.setInt(1, t.getSoluong());
-            ps.setLong(2, t.getGia());
-            ps.setLong(3, t.getId().getVatPhamid());
-            ps.setLong(4, t.getId().getMotLuotNhapid());
+            ps.setInt(1, t.getQuantity());
+            ps.setLong(2, t.getPrice());
+            ps.setLong(3, t.getId().getProductid());
+            ps.setLong(4, t.getId().getPurschaseTransactionid());
             
             ps.executeUpdate();
             
@@ -164,7 +166,7 @@ public class DsspNhapRepo
     }
 
     @Override
-    public Boolean delete(DsspNhapId id) {
+    public Boolean delete(PurschaseOrderItemId id) {
         String sql = "DELETE FROM DsspNhap WHERE VatPhamid = ? AND MotLuotNhapid = ?;";
         
         try
@@ -173,8 +175,8 @@ public class DsspNhapRepo
             PreparedStatement ps = con.prepareStatement(sql);
         )
         {
-            ps.setLong(1, id.getVatPhamid());
-            ps.setLong(2, id.getMotLuotNhapid());
+            ps.setLong(1, id.getProductid());
+            ps.setLong(2, id.getPurschaseTransactionid());
             
             ps.executeUpdate();
             
@@ -186,7 +188,7 @@ public class DsspNhapRepo
         return false;  
     }
     
-    public Boolean deleteByVatphamid(Long vatPhamid){
+    public Boolean deleteByProductid(Long vatPhamid){
         String sql = "DELETE FROM DsspNhap WHERE VatPhamid = ? ;";
         
         try
@@ -207,7 +209,7 @@ public class DsspNhapRepo
         return false; 
     }
 
-    public Boolean deleteByMotluotnhapid(Long motluotnhapid){
+    public Boolean deleteByPurschaseTransactionid(Long motluotnhapid){
         String sql = "DELETE FROM DsspNhap WHERE MotLuotNhapid = ?;";
         
         try
@@ -228,7 +230,7 @@ public class DsspNhapRepo
         return false; 
     }
 
-    List<DsspNhap> findByMotLuotNhapId(Long motLuotNhapId) {
+    public List<PurschaseOrderItem> findByPurschaseTransactionId(Long motLuotNhapId) {
         String sql = "SELECT * FROM DsspNhap WHERE MotLuotNhapid=?;";
         try 
         /*resource*/ (
@@ -240,10 +242,10 @@ public class DsspNhapRepo
 
             ResultSet rs = ps.executeQuery();
             
-            ArrayList<DsspNhap> dsT = new ArrayList<>();
+            ArrayList<PurschaseOrderItem> dsT = new ArrayList<>();
             
             while(rs.next()== true){
-                DsspNhap t = this.getFromResultSet(rs);
+                PurschaseOrderItem t = this.getFromResultSet(rs);
                 dsT.add(t);
             }
             

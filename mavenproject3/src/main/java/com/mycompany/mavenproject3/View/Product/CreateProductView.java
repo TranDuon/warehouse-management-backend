@@ -2,26 +2,26 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.mycompany.mavenproject3.ControllerAndView.VatPham;
+package com.mycompany.mavenproject3.View.Product;
 
-import com.mycompany.mavenproject3.ControllerAndView.Interface.ViewHasObjectInterface;
-import com.mycompany.mavenproject3.Db.VatPham.VatPham;
+import com.mycompany.mavenproject3.View.Interface.ViewHasObjectInterface;
+import com.mycompany.mavenproject3.Db.Product.Entity.Product;
 import java.awt.event.ActionListener;
 
 /**
  *
  * @author azoom
  */
-public class CreateVatPhamView 
+public class CreateProductView 
         extends javax.swing.JFrame 
-        implements ViewHasObjectInterface<VatPham>
+        implements ViewHasObjectInterface<Product>
 {
 
-    private VatPham o;
+    private Product o;
     /**
      * Creates new form DetailsVatPhamView
      */
-    public CreateVatPhamView() {
+    public CreateProductView() {
         initComponents();
     }
     
@@ -54,14 +54,14 @@ public class CreateVatPhamView
     }
 
     @Override
-    public void setObjectAndReload(VatPham t) {
+    public void setObjectAndReload(Product t) {
         this.o = t;
         this.reloadObjectOnView();
     }
 
     @Override
-    public VatPham getObjectFromView() {
-        return new VatPham(
+    public Product getObjectFromView() {
+        return new Product(
                 null,
                 ten.getText(),
                 Long.valueOf(gia.getText()),
@@ -74,11 +74,11 @@ public class CreateVatPhamView
     @Override
     public void reloadObjectOnView() {
         this.id.setText(o.getId().toString());
-        this.ten.setText(o.getTen());
-        this.gia.setText(o.getGia().toString());
-        this.donvi.setText(o.getDonvi());
-        this.mota.setText(o.getMota());
-        this.soluong.setText(o.getSoluong().toString());
+        this.ten.setText(o.getName());
+        this.gia.setText(o.getPrice().toString());
+        this.donvi.setText(o.getUnit());
+        this.mota.setText(o.getDescription());
+        this.soluong.setText(o.getQuantity().toString());
     }
     
     
@@ -139,6 +139,11 @@ public class CreateVatPhamView
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(create)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cancel)
+                        .addContainerGap(177, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
                             .addComponent(jLabel1)
@@ -149,19 +154,18 @@ public class CreateVatPhamView
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(soluong, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(102, 102, 102))
+                            .addGroup(layout.createSequentialGroup()
                                 .addGap(1, 1, 1)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(ten, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(donvi, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(gia, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(soluong, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(create)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cancel)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(gia, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jScrollPane1)
+                                        .addContainerGap())))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,14 +221,18 @@ public class CreateVatPhamView
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CreateVatPhamView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateProductView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CreateVatPhamView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateProductView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CreateVatPhamView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateProductView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CreateVatPhamView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateProductView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -233,7 +241,7 @@ public class CreateVatPhamView
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CreateVatPhamView().setVisible(true);
+                new CreateProductView().setVisible(true);
             }
         });
     }

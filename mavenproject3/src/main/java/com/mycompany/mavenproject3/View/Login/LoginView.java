@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.mycompany.mavenproject3.ControllerAndView.Login;
+package com.mycompany.mavenproject3.View.Login;
 
-import com.mycompany.mavenproject3.ControllerAndView.Interface.ViewInterface;
-import com.mycompany.mavenproject3.Db.User.UserDto;
+import com.mycompany.mavenproject3.View.Interface.ViewInterface;
+import com.mycompany.mavenproject3.Db.User.Dto.UserDto;
 import java.awt.event.ActionListener;
 
 /**

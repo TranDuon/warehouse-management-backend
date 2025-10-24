@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.mycompany.mavenproject3.ControllerAndView.Login;
+package com.mycompany.mavenproject3.View.Login;
 
-import com.mycompany.mavenproject3.ControllerAndView.Interface.ViewInterface;
-import com.mycompany.mavenproject3.Db.User.User;
+import com.mycompany.mavenproject3.View.Interface.ViewInterface;
+import com.mycompany.mavenproject3.Db.User.Entity.User;
 import java.awt.event.ActionListener;
 
 /**
@@ -33,7 +33,7 @@ public class RegisterView
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        loginView1 = new com.mycompany.mavenproject3.ControllerAndView.Login.LoginView();
+        loginView1 = new com.mycompany.mavenproject3.View.Login.LoginView();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -41,7 +41,7 @@ public class RegisterView
         jLabel4 = new javax.swing.JLabel();
         username = new javax.swing.JTextField();
         email = new javax.swing.JTextField();
-        sodienthoai = new javax.swing.JTextField();
+        phoneNumber = new javax.swing.JTextField();
         register = new javax.swing.JButton();
         password = new javax.swing.JPasswordField();
 
@@ -68,7 +68,7 @@ public class RegisterView
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel4)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(sodienthoai, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE))
+                            .addComponent(phoneNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE))
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel1)
@@ -100,7 +100,7 @@ public class RegisterView
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(sodienthoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(phoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(register)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -130,7 +130,7 @@ public class RegisterView
                 this.username.getText(),
                 new String(this.password.getPassword()),
                 this.email.getText(),
-                this.sodienthoai.getText(),
+                this.phoneNumber.getText(),
                 true
         );
     }
@@ -139,7 +139,7 @@ public class RegisterView
     public void deleteContent(){
         this.username.setText("");
         this.email.setText("");
-        this.sodienthoai.setText("");
+        this.phoneNumber.setText("");
         this.password.setText("");
     }
 
@@ -206,10 +206,10 @@ public class RegisterView
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private com.mycompany.mavenproject3.ControllerAndView.Login.LoginView loginView1;
+    private com.mycompany.mavenproject3.View.Login.LoginView loginView1;
     private javax.swing.JPasswordField password;
+    private javax.swing.JTextField phoneNumber;
     private javax.swing.JButton register;
-    private javax.swing.JTextField sodienthoai;
     private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables
 }

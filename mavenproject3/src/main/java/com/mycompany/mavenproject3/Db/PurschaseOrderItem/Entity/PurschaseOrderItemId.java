@@ -2,43 +2,43 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.mavenproject3.Db.DsspNhap;
+package com.mycompany.mavenproject3.Db.PurschaseOrderItem.Entity;
 
 /**
  *
  * @author azoom
  */
-public class DsspNhapId {
-    private Long VatPhamid;
-    private Long MotLuotNhapid;
+public class PurschaseOrderItemId {
+    private Long Productid;
+    private Long PurschaseTransactionid;
 
-    public DsspNhapId() {
+    public PurschaseOrderItemId() {
     }
 
-    public DsspNhapId(Long VatPhamid, Long MotLuotBanid) {
-        this.VatPhamid = VatPhamid;
-        this.MotLuotNhapid = MotLuotBanid;
+    public PurschaseOrderItemId(Long VatPhamid, Long MotLuotBanid) {
+        this.Productid = VatPhamid;
+        this.PurschaseTransactionid = MotLuotBanid;
     }
 
-    public Long getVatPhamid() {
-        return VatPhamid;
+    public Long getProductid() {
+        return Productid;
     }
 
-    public void setVatPhamid(Long VatPhamid) {
-        this.VatPhamid = VatPhamid;
+    public void setProductid(Long Productid) {
+        this.Productid = Productid;
     }
 
-    public Long getMotLuotNhapid() {
-        return MotLuotNhapid;
+    public Long getPurschaseTransactionid() {
+        return PurschaseTransactionid;
     }
 
-    public void setMotLuotNhapid(Long MotLuotNhapid) {
-        this.MotLuotNhapid = MotLuotNhapid;
+    public void setPurschaseTransactionid(Long PurschaseTransactionid) {
+        this.PurschaseTransactionid = PurschaseTransactionid;
     }
 
     @Override
     public String toString() {
-        return "DsspNhapId{" + "VatPhamid=" + VatPhamid + ", MotLuotBanid=" + MotLuotNhapid + '}';
+        return "DsspNhapId{" + "VatPhamid=" + Productid + ", MotLuotBanid=" + PurschaseTransactionid + '}';
     }
     
     

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.mavenproject3.Db.MotLuotNhap;
+package com.mycompany.mavenproject3.Db.PurschaseTransaction.Entity;
 
 import java.sql.Timestamp;
 
@@ -10,20 +10,20 @@ import java.sql.Timestamp;
  *
  * @author azoom
  */
-public class MotLuotNhap {
+public class PurschaseTransaction {
     private Long id;
-    private Timestamp thoigian;
-    private Boolean dathanhtoan;
-    private Long UseridNhanvien;
+    private Timestamp timestamp;
+    private Boolean isPaid;
+    private Long UseridEmployee;
 
-    public MotLuotNhap() {
+    public PurschaseTransaction() {
     }
 
-    public MotLuotNhap(Long id, Timestamp thoigian, Boolean dathanhtoan, Long UseridNhanVien) {
+    public PurschaseTransaction(Long id, Timestamp timestamp, Boolean isPaid, Long UseridEmployee) {
         this.id = id;
-        this.thoigian = thoigian;
-        this.dathanhtoan = dathanhtoan;
-        this.UseridNhanvien = UseridNhanVien;
+        this.timestamp = timestamp;
+        this.isPaid = isPaid;
+        this.UseridEmployee = UseridEmployee;
     }
 
     public Long getId() {
@@ -34,33 +34,33 @@ public class MotLuotNhap {
         this.id = id;
     }
 
-    public Timestamp getThoigian() {
-        return thoigian;
+    public Timestamp getTimestamp() {
+        return timestamp;
     }
 
-    public void setThoigian(Timestamp thoigian) {
-        this.thoigian = thoigian;
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
     }
 
-    public Boolean getDathanhtoan() {
-        return dathanhtoan;
+    public Boolean getIsPaid() {
+        return isPaid;
     }
 
-    public void setDathanhtoan(Boolean dathanhtoan) {
-        this.dathanhtoan = dathanhtoan;
+    public void setIsPaid(Boolean isPaid) {
+        this.isPaid = isPaid;
     }
 
-    public Long getUseridNhanvien() {
-        return UseridNhanvien;
+    public Long getUseridEmployee() {
+        return UseridEmployee;
     }
 
-    public void setUseridNhanvien(Long UseridNhanVien) {
-        this.UseridNhanvien = UseridNhanVien;
+    public void setUseridEmployee(Long UseridNhanVien) {
+        this.UseridEmployee = UseridNhanVien;
     }
 
     @Override
     public String toString() {
-        return "MotLuotNhap{" + "id=" + id + ", thoigian=" + thoigian + ", dathanhtoan=" + dathanhtoan + ", UseridNhanVien=" + UseridNhanvien + '}';
+        return "MotLuotNhap{" + "id=" + id + ", thoigian=" + timestamp + ", dathanhtoan=" + isPaid + ", UseridNhanVien=" + UseridEmployee + '}';
     }
     
 }

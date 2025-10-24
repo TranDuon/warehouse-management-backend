@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.mavenproject3.Db.DsspBan;
+package com.mycompany.mavenproject3.Db.SaleOrderItem.Entity;
 
 
 /**
@@ -10,43 +10,43 @@ package com.mycompany.mavenproject3.Db.DsspBan;
  * @author azoom
  */
 
-public class DsspBan {
+public class SaleOrderItem {
 
-    private DsspBanId id;
-    private Integer soluong;
-    private Long gia;
+    private SaleOrderItemId id;
+    private Integer quantity;
+    private Long price;
 
-    public DsspBan() {
+    public SaleOrderItem() {
     }
     
-    public DsspBan(DsspBanId id, Integer soluong, Long gia) {
+    public SaleOrderItem(SaleOrderItemId id, Integer quantity, Long price) {
         this.id = id;
-        this.soluong = soluong;
-        this.gia = gia;
+        this.quantity = quantity;
+        this.price = price;
     }
 
-    public DsspBanId getId() {
+    public SaleOrderItemId getId() {
         return id;
     }
 
-    public void setId(DsspBanId id) {
+    public void setId(SaleOrderItemId id) {
         this.id = id;
     }
 
-    public Integer getSoluong() {
-        return soluong;
+    public Integer getQuantity() {
+        return quantity;
     }
 
-    public void setSoluong(Integer soluong) {
-        this.soluong = soluong;
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
-    public Long getGia() {
-        return gia;
+    public Long getPrice() {
+        return price;
     }
 
-    public void setGia(Long gia) {
-        this.gia = gia;
+    public void setPrice(Long price) {
+        this.price = price;
     }
 
     

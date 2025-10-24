@@ -2,9 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.mavenproject3.ControllerAndView.MotLuotNhap;
+package com.mycompany.mavenproject3.View.PurschaseTransaction;
 
-import com.mycompany.mavenproject3.ControllerAndView.MotLuotBan.*;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
@@ -12,11 +11,11 @@ import java.time.LocalDateTime;
  *
  * @author azoom
  */
-public class ListMotLuotNhapViewParameter {
+public class ListPurschaseTransactionViewParameter {
     private LocalDateTime dateTimeFrom;
     private LocalDateTime dateTimeTo;
 
-    public ListMotLuotNhapViewParameter(LocalDateTime dateTimeFrom, LocalDateTime dateTimeTo) {
+    public ListPurschaseTransactionViewParameter(LocalDateTime dateTimeFrom, LocalDateTime dateTimeTo) {
         this.dateTimeFrom = dateTimeFrom;
         this.dateTimeTo = dateTimeTo;
     }

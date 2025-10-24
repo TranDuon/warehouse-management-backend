@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.mavenproject3.Db.HoaDonBan;
+package com.mycompany.mavenproject3.Db.SaleInvoice.Entity;
 
 import java.sql.Timestamp;
 
@@ -11,20 +11,20 @@ import java.sql.Timestamp;
  *
  * @author azoom
  */
-public class HoaDonBan {
+public class SaleInvoice {
     private Long id;
-    private Timestamp thoigian;
-    private Long sotien;
-    private Boolean lathanhtoantienmat;
-    private Long Motluotbanid;
-    public HoaDonBan() {
+    private Timestamp timestamp;
+    private Long amount;
+    private Boolean isCashPayment;
+    private Long SaleTransactionId;
+    public SaleInvoice() {
     }
-    public HoaDonBan(Long id, Timestamp thoigian, Long sotien, Boolean lathanhtoantienmat, Long motluotbanid) {
+    public SaleInvoice(Long id, Timestamp timestamp, Long amount, Boolean isCashPayment, Long SaleTransactionId) {
         this.id = id;
-        this.thoigian = thoigian;
-        this.sotien = sotien;
-        this.lathanhtoantienmat = lathanhtoantienmat;
-        Motluotbanid = motluotbanid;
+        this.timestamp = timestamp;
+        this.amount = amount;
+        this.isCashPayment = isCashPayment;
+        this.SaleTransactionId = SaleTransactionId;
     }
 
     public Long getId() {
@@ -35,36 +35,36 @@ public class HoaDonBan {
         this.id = id;
     }
 
-    public Timestamp getThoigian() {
-        return thoigian;
+    public Timestamp getTimestamp() {
+        return timestamp;
     }
 
-    public void setThoigian(Timestamp thoigian) {
-        this.thoigian = thoigian;
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
     }
 
-    public Long getSotien() {
-        return sotien;
+    public Long getAmount() {
+        return amount;
     }
 
-    public void setSotien(Long sotien) {
-        this.sotien = sotien;
+    public void setAmount(Long amount) {
+        this.amount = amount;
     }
 
-    public Boolean getLathanhtoantienmat() {
-        return lathanhtoantienmat;
+    public Boolean getIsCashPayment() {
+        return isCashPayment;
     }
 
-    public void setLathanhtoantienmat(Boolean lathanhtoantienmat) {
-        this.lathanhtoantienmat = lathanhtoantienmat;
+    public void setIsCashPayment(Boolean isCashPayment) {
+        this.isCashPayment = isCashPayment;
     }
 
-    public Long getMotluotbanid() {
-        return Motluotbanid;
+    public Long getSaleTransactionId() {
+        return SaleTransactionId;
     }
 
-    public void setMotluotbanid(Long Motluotbanid) {
-        this.Motluotbanid = Motluotbanid;
+    public void setSaleTransactionId(Long SaleTransactionId) {
+        this.SaleTransactionId = SaleTransactionId;
     }
     
     

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.mavenproject3.Db.User;
+package com.mycompany.mavenproject3.Db.User.Entity;
 
 
 /**
@@ -14,18 +14,18 @@ public class User {
     private String username;
     private String password;
     private String email;
-    private String sodienthoai;
+    private String phoneNumber;
     private Boolean enabled;
 
     public User() {
     }
     
-    public User(Long id, String username, String password, String email, String sodienthoai, Boolean enabled) {
+    public User(Long id, String username, String password, String email, String phoneNumber, Boolean enabled) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
-        this.sodienthoai = sodienthoai;
+        this.phoneNumber = phoneNumber;
         this.enabled = enabled;
     }
 
@@ -61,12 +61,12 @@ public class User {
         this.email = email;
     }
 
-    public String getSodienthoai() {
-        return sodienthoai;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setSodienthoai(String sodienthoai) {
-        this.sodienthoai = sodienthoai;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public Boolean getEnabled() {

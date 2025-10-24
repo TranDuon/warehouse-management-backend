@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.mavenproject3.Db.VatPham;
+package com.mycompany.mavenproject3.Db.Product.Repository;
 
+import com.mycompany.mavenproject3.Db.Product.Entity.Product;
 import com.mycompany.mavenproject3.Db.Interface.RepoInterface;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -19,14 +20,14 @@ import java.util.List;
  *
  * @author azoom
  */
-public class VatPhamRepo 
-        implements RepoInterface<VatPham, Long>
+public class ProductRepo 
+        implements RepoInterface<Product, Long>
 {
     private static final String url= "jdbc:sqlserver://localhost:1433;databaseName=DemoJava6;encrypt=false;trustServerCertificate=true";
     private static final String username = "a0000";
     private static final String password = "a0000";
 
-    public VatPhamRepo() {
+    public ProductRepo() {
     }
     
     @Override
@@ -35,9 +36,9 @@ public class VatPhamRepo
     }
 
     @Override
-    public VatPham getFromResultSet(ResultSet rs) {
+    public Product getFromResultSet(ResultSet rs) {
         try {
-            VatPham t = new VatPham(
+            Product t = new Product(
                 rs.getLong("id"),
                 rs.getString("ten"),
                 rs.getLong("gia"),
@@ -55,7 +56,7 @@ public class VatPhamRepo
     }
 
     @Override
-    public VatPham findById(Long id) {
+    public Product findById(Long id) {
         String sql = "SELECT id, ten, gia, donvi, mota, soluong FROM VatPham WHERE id = ? ;";
         try 
         /*resource*/ (
@@ -68,7 +69,7 @@ public class VatPhamRepo
             ResultSet rs = ps.executeQuery();
             
             if(rs.next()==true ){
-                VatPham t= this.getFromResultSet(rs);
+                Product t= this.getFromResultSet(rs);
                 return t;
             }
             
@@ -81,10 +82,10 @@ public class VatPhamRepo
     }
 
     @Override
-    public List<VatPham> getList(Integer sttPage, Integer sizePage) {
+    public List<Product> getList(Integer sttPage, Integer sizePage) {
         String sql = "SELECT DISTINCT * FROM VatPham WHERE 1=1 ORDER BY id DESC OFFSET ? ROW FETCH NEXT ? ROW ONLY ";
         
-        List<VatPham> dsT = new ArrayList<>();
+        List<Product> dsT = new ArrayList<>();
         
         try
         /*resource*/(
@@ -98,7 +99,7 @@ public class VatPhamRepo
             ResultSet rs = ps.executeQuery();
             
             while(rs.next()== true){
-                VatPham t = this.getFromResultSet(rs);
+                Product t = this.getFromResultSet(rs);
                 dsT.add(t);
             }
             
@@ -111,7 +112,7 @@ public class VatPhamRepo
     }
 
     @Override
-    public VatPham create(VatPham t) {
+    public Product create(Product t) {
         String sql = "INSERT INTO VatPham(ten, gia, donvi, mota, soluong) VALUES (?, ?, ?, ?, ?);";
 
         t.setId(null);
@@ -122,12 +123,12 @@ public class VatPhamRepo
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         )
         {
-            ps.setString(1, t.getTen());
-            ps.setLong(2, t.getGia());
-            ps.setString(3, t.getDonvi());
-            ps.setString(4, t.getMota());
+            ps.setString(1, t.getName());
+            ps.setLong(2, t.getPrice());
+            ps.setString(3, t.getUnit());
+            ps.setString(4, t.getDescription());
 //            ps.setString(5, t.getUrlanh());
-            ps.setInt(5, t.getSoluong());
+            ps.setInt(5, t.getQuantity());
             
             ps.executeUpdate();
             
@@ -149,7 +150,7 @@ public class VatPhamRepo
     }
 
     @Override
-    public VatPham update(Long id, VatPham t) {
+    public Product update(Long id, Product t) {
         t.setId(id);
         
         String sql = "UPDATE VatPham SET ten = ?, gia = ?, donvi = ?, mota = ?, soluong=? WHERE id = ?;";
@@ -160,12 +161,12 @@ public class VatPhamRepo
             PreparedStatement ps = con.prepareStatement(sql);
         )
         {
-            ps.setString(1, t.getTen());
-            ps.setLong(2, t.getGia());
-            ps.setString(3, t.getDonvi());
-            ps.setString(4, t.getMota());
+            ps.setString(1, t.getName());
+            ps.setLong(2, t.getPrice());
+            ps.setString(3, t.getUnit());
+            ps.setString(4, t.getDescription());
 //            ps.setString(5, t.getUrlanh());
-            ps.setInt(5, t.getSoluong());
+            ps.setInt(5, t.getQuantity());
             
             ps.setLong(6, t.getId());
             
@@ -201,7 +202,7 @@ public class VatPhamRepo
         return false;
     }
     
-    public List<VatPham> findByName(String name){
+    public List<Product> findByName(String name){
         String sql = 
                 """
                 SELECT *
@@ -210,7 +211,7 @@ public class VatPhamRepo
                     ten COLLATE SQL_Latin1_General_Cp1253_CI_AI LIKE ? 
                     OR mota COLLATE SQL_Latin1_General_Cp1253_CI_AI LIKE ? ;""";
 
-        List<VatPham> dsT = new ArrayList<>();
+        List<Product> dsT = new ArrayList<>();
         
         try
         /*resource*/(
@@ -224,7 +225,7 @@ public class VatPhamRepo
             ResultSet rs = ps.executeQuery();
             
             while(rs.next()== true){
-                VatPham t = this.getFromResultSet(rs);
+                Product t = this.getFromResultSet(rs);
                 dsT.add(t);
             }
             
@@ -237,15 +238,15 @@ public class VatPhamRepo
     }
     
     public static void main(String[] args) {
-        VatPhamRepo vatPhamRepo = new VatPhamRepo();
+        ProductRepo vatPhamRepo = new ProductRepo();
         System.out.println("Hello");
-        List<VatPham> dsT = vatPhamRepo.getList(1, 10);
+        List<Product> dsT = vatPhamRepo.getList(1, 10);
         for(int i=0; i<dsT.size(); i++){
             System.out.println(dsT.get(i).toString());
         }
         System.out.println("Hello2");
         
-        List<VatPham> dsT2 = vatPhamRepo.findByName("sữa");
+        List<Product> dsT2 = vatPhamRepo.findByName("sữa");
         for(int i=0; i<dsT2.size(); i++){
             System.out.println(dsT2.get(i).toString());
         }

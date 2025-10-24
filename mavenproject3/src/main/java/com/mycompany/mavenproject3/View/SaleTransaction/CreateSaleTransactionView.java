@@ -2,13 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.mycompany.mavenproject3.ControllerAndView.MotLuotBan;
+package com.mycompany.mavenproject3.View.SaleTransaction;
 
-import com.mycompany.mavenproject3.ControllerAndView.Interface.ViewHasListObjectInterface;
-import com.mycompany.mavenproject3.ControllerAndView.Interface.ViewHasObjectInterface;
-import com.mycompany.mavenproject3.ControllerAndView.Interface.ViewInterface;
-import com.mycompany.mavenproject3.Db.DsspBan.DsspBan;
-import com.mycompany.mavenproject3.Db.VatPham.VatPham;
+import com.mycompany.mavenproject3.View.Interface.ViewHasListObjectInterface;
+import com.mycompany.mavenproject3.View.Interface.ViewHasObjectInterface;
+import com.mycompany.mavenproject3.View.Interface.ViewInterface;
+import com.mycompany.mavenproject3.Db.SaleOrderItem.Entity.SaleOrderItem;
+import com.mycompany.mavenproject3.Db.Product.Entity.Product;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,22 +21,22 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author azoom
  */
-public class CreateMotLuotBanView 
+public class CreateSaleTransactionView 
         extends javax.swing.JFrame
         implements 
             ViewInterface ,
-            ViewHasListObjectInterface<VatPhamWithSoLuongDat>
+            ViewHasListObjectInterface<ProductWithSaleQuantity>
 {
 
     /**
      * Creates new form CreateMotLuotBan
      */
-    public CreateMotLuotBanView() {
+    public CreateSaleTransactionView() {
         initComponents();
         this.table.getModel().addTableModelListener(new Listener_Table_When_ChangeCellTable());
     }
     
-    public void addItem(VatPham t2){
+    public void addItem(Product t2){
         
         DefaultTableModel model = (DefaultTableModel) this.table.getModel();
         Integer sohang = model.getRowCount();
@@ -45,27 +45,27 @@ public class CreateMotLuotBanView
                 new Object[]{
                     sohang,
                     t2.getId(),
-                    t2.getTen(),
-                    t2.getGia(),
-                    t2.getDonvi(),
-                    t2.getSoluong(),
+                    t2.getName(),
+                    t2.getPrice(),
+                    t2.getUnit(),
+                    t2.getQuantity(),
                     0
                 }
         );
     }
 
     @Override
-    public void setListObjectAndReload(List<VatPhamWithSoLuongDat> dsT) {
+    public void setListObjectAndReload(List<ProductWithSaleQuantity> dsT) {
         this.dsVatPhamWithSoLuongDat = dsT;
         this.reloadListObjectOnView();
     }
 
     @Override
-    public List<VatPhamWithSoLuongDat> getListObjectFromView() {
+    public List<ProductWithSaleQuantity> getListObjectFromView() {
         DefaultTableModel model = (DefaultTableModel) this.table.getModel();
         Integer sohang = model.getRowCount();
         
-        List<VatPhamWithSoLuongDat> list = new ArrayList<>();
+        List<ProductWithSaleQuantity> list = new ArrayList<>();
         for(int i=0; i<sohang; i++){
             
             Long temp_id = Long.valueOf(model.getValueAt(i, 1).toString());
@@ -77,8 +77,8 @@ public class CreateMotLuotBanView
             Integer temp_soluongdat = Integer.valueOf(model.getValueAt(i, 6).toString());
             
             
-            VatPhamWithSoLuongDat t = new VatPhamWithSoLuongDat(
-                    new VatPham(
+            ProductWithSaleQuantity t = new ProductWithSaleQuantity(
+                    new Product(
                             temp_id,
                             temp_ten,
                             temp_gia,
@@ -100,16 +100,16 @@ public class CreateMotLuotBanView
         model.setRowCount(0);
         
         Integer i =0;
-        for(VatPhamWithSoLuongDat o : this.dsVatPhamWithSoLuongDat){
+        for(ProductWithSaleQuantity o : this.dsVatPhamWithSoLuongDat){
             model.addRow(
                     new Object[]{
                         i,
-                        o.getVatPham().getId(),
-                        o.getVatPham().getTen(),
-                        o.getVatPham().getGia(),
-                        o.getVatPham().getDonvi(),
-                        o.getVatPham().getSoluong(),
-                        o.getSoLuongDat()
+                        o.getProduct().getId(),
+                        o.getProduct().getName(),
+                        o.getProduct().getPrice(),
+                        o.getProduct().getUnit(),
+                        o.getProduct().getQuantity(),
+                        o.getQuantity()
                     }
             );
             i++;
@@ -136,11 +136,11 @@ public class CreateMotLuotBanView
 
     // Hàm inject hàm xử lý sự kiện
     public void add_Listener_Button_Add(ActionListener e){
-        this.addVatPham.addActionListener(e);
+        this.addProduct.addActionListener(e);
     }
     
     public void add_Listener_Button_Create(ActionListener e){
-        this.createLuotBanHang.addActionListener(e);
+        this.createSaleTransaction.addActionListener(e);
     }
     
     public void add_Listener_Button_Cancel(ActionListener e){
@@ -159,10 +159,10 @@ public class CreateMotLuotBanView
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
-        addVatPham = new javax.swing.JButton();
-        removeVatPham = new javax.swing.JButton();
+        addProduct = new javax.swing.JButton();
+        removeProduct = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
-        createLuotBanHang = new javax.swing.JButton();
+        createSaleTransaction = new javax.swing.JButton();
         cancel = new javax.swing.JButton();
 
         jLabel2.setText("Tạo một lượt bán hàng");
@@ -193,19 +193,19 @@ public class CreateMotLuotBanView
         table.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(table);
 
-        addVatPham.setText("Add vật phẩm");
+        addProduct.setText("Add vật phẩm");
 
-        removeVatPham.setText("Remove vật phẩm");
-        removeVatPham.addActionListener(new java.awt.event.ActionListener() {
+        removeProduct.setText("Remove vật phẩm");
+        removeProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                removeVatPhamActionPerformed(evt);
+                removeProductActionPerformed(evt);
             }
         });
 
-        createLuotBanHang.setText("Create lượt bán hàng");
-        createLuotBanHang.addActionListener(new java.awt.event.ActionListener() {
+        createSaleTransaction.setText("Create lượt bán hàng");
+        createSaleTransaction.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                createLuotBanHangActionPerformed(evt);
+                createSaleTransactionActionPerformed(evt);
             }
         });
 
@@ -231,11 +231,11 @@ public class CreateMotLuotBanView
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(addVatPham)
+                                        .addComponent(addProduct)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(removeVatPham))
+                                        .addComponent(removeProduct))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(createLuotBanHang)
+                                        .addComponent(createSaleTransaction)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(cancel)))
                                 .addGap(0, 327, Short.MAX_VALUE)))
@@ -250,13 +250,13 @@ public class CreateMotLuotBanView
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addVatPham)
-                    .addComponent(removeVatPham))
+                    .addComponent(addProduct)
+                    .addComponent(removeProduct))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(createLuotBanHang)
+                    .addComponent(createSaleTransaction)
                     .addComponent(cancel))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -264,16 +264,16 @@ public class CreateMotLuotBanView
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void createLuotBanHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createLuotBanHangActionPerformed
+    private void createSaleTransactionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createSaleTransactionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_createLuotBanHangActionPerformed
+    }//GEN-LAST:event_createSaleTransactionActionPerformed
 
-    private void removeVatPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeVatPhamActionPerformed
+    private void removeProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeProductActionPerformed
         // TODO add your handling code here:
         Integer sttHangDaChon = this.table.getSelectedRow();
         
         if(sttHangDaChon!=-1 ){
-            ArrayList<VatPhamWithSoLuongDat> dsT = new ArrayList<>();
+            ArrayList<ProductWithSaleQuantity> dsT = new ArrayList<>();
             for(int i=0; i<this.dsVatPhamWithSoLuongDat.size(); i++){
                 if(i!=sttHangDaChon){
                     dsT.add(this.dsVatPhamWithSoLuongDat.get(i));
@@ -283,13 +283,13 @@ public class CreateMotLuotBanView
             this.setListObjectAndReload(dsT);
 
 //            System.out.println("{");
-//            for(VatPhamWithSoLuongDat t : this.dsVatPhamWithSoLuongDat){
+//            for(ProductWithSaleQuantity t : this.dsVatPhamWithSoLuongDat){
 //                System.out.println("    "+ t.toString() + " ");
 //            }
 //            System.out.println("}");
             
         }
-    }//GEN-LAST:event_removeVatPhamActionPerformed
+    }//GEN-LAST:event_removeProductActionPerformed
 
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
         // TODO add your handling code here:
@@ -312,14 +312,15 @@ public class CreateMotLuotBanView
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CreateMotLuotBanView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateSaleTransactionView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CreateMotLuotBanView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateSaleTransactionView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CreateMotLuotBanView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateSaleTransactionView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CreateMotLuotBanView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateSaleTransactionView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
 
@@ -327,12 +328,12 @@ public class CreateMotLuotBanView
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 
-                CreateMotLuotBanView view = new CreateMotLuotBanView();
+                CreateSaleTransactionView view = new CreateSaleTransactionView();
                 
-                List<VatPhamWithSoLuongDat> list = new ArrayList<>();
+                List<ProductWithSaleQuantity> list = new ArrayList<>();
                 for(int i=0; i<5; i++){
-                    VatPhamWithSoLuongDat t = new VatPhamWithSoLuongDat(
-                            new VatPham(
+                    ProductWithSaleQuantity t = new ProductWithSaleQuantity(
+                            new Product(
                                     null,
                                     null,
                                     null,
@@ -352,16 +353,16 @@ public class CreateMotLuotBanView
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addVatPham;
+    private javax.swing.JButton addProduct;
     private javax.swing.JButton cancel;
-    private javax.swing.JButton createLuotBanHang;
+    private javax.swing.JButton createSaleTransaction;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JButton removeVatPham;
+    private javax.swing.JButton removeProduct;
     private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
-    private List<VatPhamWithSoLuongDat> dsVatPhamWithSoLuongDat;
+    private List<ProductWithSaleQuantity> dsVatPhamWithSoLuongDat;
 
     /*
 

@@ -2,8 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.mavenproject3.Db.VatPham;
+package com.mycompany.mavenproject3.Db.Product.Service;
 
+import com.mycompany.mavenproject3.Db.Product.Repository.ProductRepo;
+import com.mycompany.mavenproject3.Db.Product.Entity.Product;
 import java.util.List;
 
 
@@ -13,34 +15,34 @@ import com.mycompany.mavenproject3.Db.Interface.ServiceInterface;
  *
  * @author azoom
  */
-public class VatPhamService 
-        implements ServiceInterface<VatPham, Long>
+public class ProductService 
+        implements ServiceInterface<Product, Long>
 {
-    private VatPhamRepo vatPhamRepo;
+    private ProductRepo vatPhamRepo;
 
-    public VatPhamService() {
-        this.vatPhamRepo = new VatPhamRepo();
+    public ProductService() {
+        this.vatPhamRepo = new ProductRepo();
     }
     
     
 
     @Override
-    public VatPham findById(Long id) {
+    public Product findById(Long id) {
         return this.vatPhamRepo.findById(id);
     }
 
     @Override
-    public List<VatPham> getList(Integer sttPage, Integer sizePage) {
+    public List<Product> getList(Integer sttPage, Integer sizePage) {
         return this.vatPhamRepo.getList(sttPage, sizePage);
     }
     @Override
 
-    public VatPham create(VatPham t) {
+    public Product create(Product t) {
         return this.vatPhamRepo.create(t);
     }
 
     @Override
-    public VatPham update(Long id, VatPham t) {
+    public Product update(Long id, Product t) {
         return this.vatPhamRepo.update(id, t);
     }
 
@@ -49,7 +51,7 @@ public class VatPhamService
         return this.vatPhamRepo.delete(id);
     }
     
-    public List<VatPham> findByName(String name){
+    public List<Product> findByName(String name){
         return this.vatPhamRepo.findByName(name);
     }
     

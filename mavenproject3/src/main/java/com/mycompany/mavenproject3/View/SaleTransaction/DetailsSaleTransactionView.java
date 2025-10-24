@@ -2,13 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.mycompany.mavenproject3.ControllerAndView.MotLuotBan;
+package com.mycompany.mavenproject3.View.SaleTransaction;
 
-import com.mycompany.mavenproject3.ControllerAndView.Interface.ViewHasListObjectInterface;
-import com.mycompany.mavenproject3.ControllerAndView.Interface.ViewHasObjectInterface;
-import com.mycompany.mavenproject3.Db.DsspBan.DsspBan;
-import com.mycompany.mavenproject3.Db.DsspBan.DsspBanId;
-import com.mycompany.mavenproject3.Db.MotLuotBan.MotLuotBan;
+import com.mycompany.mavenproject3.View.Interface.ViewHasListObjectInterface;
+import com.mycompany.mavenproject3.View.Interface.ViewHasObjectInterface;
+import com.mycompany.mavenproject3.Db.SaleOrderItem.Entity.SaleOrderItem;
+import com.mycompany.mavenproject3.Db.SaleOrderItem.Entity.SaleOrderItemId;
+import com.mycompany.mavenproject3.Db.SaleTransaction.Entity.SaleTransaction;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -20,36 +20,36 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author azoom
  */
-public class DetailsMotLuotBanView 
+public class DetailsSaleTransactionView 
         extends javax.swing.JFrame 
         implements 
-            ViewHasListObjectInterface<DsspBanHasNameProduct>,
-            ViewHasObjectInterface<MotLuotBan>
+            ViewHasListObjectInterface<SaleOrderItemHasNameProduct>,
+            ViewHasObjectInterface<SaleTransaction>
 {
 
     /**
      * Creates new form DetailsMotLuotBanView
      */
-    public DetailsMotLuotBanView() {
+    public DetailsSaleTransactionView() {
         initComponents();
     }
 
     @Override
-    public void setListObjectAndReload(List<DsspBanHasNameProduct> dsT) {
+    public void setListObjectAndReload(List<SaleOrderItemHasNameProduct> dsT) {
         this.detailsMotLuotBanViewList = dsT;
         this.reloadListObjectOnView();
     }
 
     @Override
-    public List<DsspBanHasNameProduct> getListObjectFromView() {
+    public List<SaleOrderItemHasNameProduct> getListObjectFromView() {
         DefaultTableModel model = (DefaultTableModel) this.table.getModel();
         Integer sohang = model.getRowCount();
         
-        List<DsspBanHasNameProduct> list= new ArrayList<>();
+        List<SaleOrderItemHasNameProduct> list= new ArrayList<>();
         for(int i=0; i<sohang; i++){
-            DsspBanHasNameProduct t = new DsspBanHasNameProduct(
-                    new DsspBan(
-                            new DsspBanId(
+            SaleOrderItemHasNameProduct t = new SaleOrderItemHasNameProduct(
+                    new SaleOrderItem(
+                            new SaleOrderItemId(
                                     Long.valueOf(model.getValueAt(i, 0).toString()),
                                     Long.valueOf(model.getValueAt(i, 2).toString())
                             ),
@@ -69,14 +69,14 @@ public class DetailsMotLuotBanView
         DefaultTableModel model = (DefaultTableModel) this.table.getModel();
         model.setRowCount(0);
         
-        for(DsspBanHasNameProduct t : this.detailsMotLuotBanViewList){
+        for(SaleOrderItemHasNameProduct t : this.detailsMotLuotBanViewList){
             model.addRow(
                     new Object[]{
-                        t.getDsspBan().getId().getVatPhamid(),
-                        t.getTen(),
-                        t.getDsspBan().getId().getMotLuotBanid(),
-                        t.getDsspBan().getSoluong(),
-                        t.getDsspBan().getGia()
+                        t.getSaleOrderItem().getId().getVatPhamid(),
+                        t.getName(),
+                        t.getSaleOrderItem().getId().getMotLuotBanid(),
+                        t.getSaleOrderItem().getQuantity(),
+                        t.getSaleOrderItem().getPrice()
                     }
             );
         }
@@ -97,27 +97,27 @@ public class DetailsMotLuotBanView
 //        this.setListObjectAndReload(null);
 //        this.setObjectAndReload(null);
         this.id.setText("");
-        this.thoigian.setText("");
-        this.dathanhtoan.setText("");
-        this.idnhanvien.setText("");
+        this.timestamp.setText("");
+        this.isPaid.setText("");
+        this.useridEmployee.setText("");
         
         DefaultTableModel model = (DefaultTableModel) this.table.getModel();
         model.setRowCount(0);
     }
 
     @Override
-    public void setObjectAndReload(MotLuotBan t) {
+    public void setObjectAndReload(SaleTransaction t) {
         this.motLuotBan = t;
         this.reloadObjectOnView();
     }
 
     @Override
-    public MotLuotBan getObjectFromView() {
-        MotLuotBan t = new MotLuotBan(
+    public SaleTransaction getObjectFromView() {
+        SaleTransaction t = new SaleTransaction(
                 Long.valueOf(this.id.getText()),
-                Timestamp.valueOf(LocalDateTime.parse(this.thoigian.getText())),
-                Boolean.valueOf(this.dathanhtoan.getText()),
-                Long.valueOf(this.idnhanvien.getText())
+                Timestamp.valueOf(LocalDateTime.parse(this.timestamp.getText())),
+                Boolean.valueOf(this.isPaid.getText()),
+                Long.valueOf(this.useridEmployee.getText())
         );
         return t;
     }
@@ -125,9 +125,9 @@ public class DetailsMotLuotBanView
     @Override
     public void reloadObjectOnView() {
         this.id.setText(this.motLuotBan.getId().toString());
-        this.thoigian.setText(this.motLuotBan.getThoigian().toString());
-        this.dathanhtoan.setText(this.motLuotBan.getDathanhtoan().toString());
-        this.idnhanvien.setText(this.motLuotBan.getUseridNhanvien().toString());
+        this.timestamp.setText(this.motLuotBan.getTimestamp().toString());
+        this.isPaid.setText(this.motLuotBan.getIsPaid().toString());
+        this.useridEmployee.setText(this.motLuotBan.getUseridEmployee().toString());
     }
 
     
@@ -149,9 +149,9 @@ public class DetailsMotLuotBanView
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         id = new javax.swing.JTextField();
-        thoigian = new javax.swing.JTextField();
-        dathanhtoan = new javax.swing.JTextField();
-        idnhanvien = new javax.swing.JTextField();
+        timestamp = new javax.swing.JTextField();
+        isPaid = new javax.swing.JTextField();
+        useridEmployee = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
@@ -181,19 +181,19 @@ public class DetailsMotLuotBanView
 
         id.setEditable(false);
 
-        thoigian.setEditable(false);
+        timestamp.setEditable(false);
 
-        dathanhtoan.setEditable(false);
-        dathanhtoan.addActionListener(new java.awt.event.ActionListener() {
+        isPaid.setEditable(false);
+        isPaid.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dathanhtoanActionPerformed(evt);
+                isPaidActionPerformed(evt);
             }
         });
 
-        idnhanvien.setEditable(false);
-        idnhanvien.addActionListener(new java.awt.event.ActionListener() {
+        useridEmployee.setEditable(false);
+        useridEmployee.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                idnhanvienActionPerformed(evt);
+                useridEmployeeActionPerformed(evt);
             }
         });
 
@@ -232,22 +232,24 @@ public class DetailsMotLuotBanView
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(idnhanvien, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(thoigian, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dathanhtoan, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel2))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(useridEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(timestamp, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(isPaid, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap(216, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -260,15 +262,15 @@ public class DetailsMotLuotBanView
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(thoigian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(timestamp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dathanhtoan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(isPaid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(idnhanvien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(useridEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel6)
@@ -280,13 +282,13 @@ public class DetailsMotLuotBanView
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void idnhanvienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idnhanvienActionPerformed
+    private void useridEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_useridEmployeeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_idnhanvienActionPerformed
+    }//GEN-LAST:event_useridEmployeeActionPerformed
 
-    private void dathanhtoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dathanhtoanActionPerformed
+    private void isPaidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_isPaidActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_dathanhtoanActionPerformed
+    }//GEN-LAST:event_isPaidActionPerformed
 
     /**
      * @param args the command line arguments
@@ -305,28 +307,28 @@ public class DetailsMotLuotBanView
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DetailsMotLuotBanView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DetailsSaleTransactionView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DetailsMotLuotBanView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DetailsSaleTransactionView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DetailsMotLuotBanView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DetailsSaleTransactionView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DetailsMotLuotBanView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DetailsSaleTransactionView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DetailsMotLuotBanView().setVisible(true);
+                new DetailsSaleTransactionView().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField dathanhtoan;
     private javax.swing.JTextField id;
-    private javax.swing.JTextField idnhanvien;
+    private javax.swing.JTextField isPaid;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -337,10 +339,11 @@ public class DetailsMotLuotBanView
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable table;
-    private javax.swing.JTextField thoigian;
+    private javax.swing.JTextField timestamp;
+    private javax.swing.JTextField useridEmployee;
     // End of variables declaration//GEN-END:variables
-    private List<DsspBanHasNameProduct> detailsMotLuotBanViewList;
-    private MotLuotBan motLuotBan;
+    private List<SaleOrderItemHasNameProduct> detailsMotLuotBanViewList;
+    private SaleTransaction motLuotBan;
     
     
 //    private static DateTimeFormatter dateTimeFormatter2 = DateTimeFormatter.ofPattern("HH:mm:ss dd/MM/yyyy");

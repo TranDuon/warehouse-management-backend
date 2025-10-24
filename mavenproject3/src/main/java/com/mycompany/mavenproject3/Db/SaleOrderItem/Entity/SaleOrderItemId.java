@@ -2,21 +2,21 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.mavenproject3.Db.DsspBan;
+package com.mycompany.mavenproject3.Db.SaleOrderItem.Entity;
 
 
 /**
  *
  * @author azoom
  */
-public class DsspBanId {
+public class SaleOrderItemId {
     private Long VatPhamid;
     private Long MotLuotBanid;
 
-    public DsspBanId() {
+    public SaleOrderItemId() {
     }
     
-    public DsspBanId(Long vatPhamid, Long motLuotBanid) {
+    public SaleOrderItemId(Long vatPhamid, Long motLuotBanid) {
         VatPhamid = vatPhamid;
         MotLuotBanid = motLuotBanid;
     }

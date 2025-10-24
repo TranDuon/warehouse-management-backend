@@ -2,14 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.mavenproject3.ControllerAndView.Login;
+package com.mycompany.mavenproject3.Controller;
 
-import com.mycompany.mavenproject3.ControllerAndView.Home.HomeController;
-import com.mycompany.mavenproject3.ControllerAndView.Home.HomeView;
-import com.mycompany.mavenproject3.ControllerAndView.Interface.ControllerInterface;
-import com.mycompany.mavenproject3.Db.User.User;
-import com.mycompany.mavenproject3.Db.User.UserDto;
-import com.mycompany.mavenproject3.Db.User.UserService;
+import com.mycompany.mavenproject3.Controller.HomeController;
+import com.mycompany.mavenproject3.View.Home.HomeView;
+import com.mycompany.mavenproject3.Controller.ControllerInterface;
+import com.mycompany.mavenproject3.Db.User.Entity.User;
+import com.mycompany.mavenproject3.Db.User.Dto.UserDto;
+import com.mycompany.mavenproject3.Db.User.Service.UserService;
+import com.mycompany.mavenproject3.View.Login.LoginView;
+import com.mycompany.mavenproject3.View.Login.RegisterView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

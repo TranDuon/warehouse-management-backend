@@ -2,8 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.mavenproject3.Db.HoaDonBan;
+package com.mycompany.mavenproject3.Db.SaleInvoice.Service;
 
+import com.mycompany.mavenproject3.Db.SaleInvoice.Repository.SaleInvoiceRepo;
+import com.mycompany.mavenproject3.Db.SaleInvoice.Entity.SaleInvoice;
 import java.util.List;
 
 
@@ -13,33 +15,33 @@ import com.mycompany.mavenproject3.Db.Interface.ServiceInterface;
  *
  * @author azoom
  */
-public class HoaDonBanService 
-        implements ServiceInterface<HoaDonBan, Long>
+public class SaleInvoiceService 
+        implements ServiceInterface<SaleInvoice, Long>
 {
-    private HoaDonBanRepo hoaDonBanRepo;
+    private SaleInvoiceRepo hoaDonBanRepo;
 
-    public HoaDonBanService() {
-        this.hoaDonBanRepo = new HoaDonBanRepo();
+    public SaleInvoiceService() {
+        this.hoaDonBanRepo = new SaleInvoiceRepo();
     }
 
     
     @Override
-    public HoaDonBan findById(Long id) {
+    public SaleInvoice findById(Long id) {
         return this.hoaDonBanRepo.findById(id);
     }
 
     @Override
-    public List<HoaDonBan> getList(Integer sttPage, Integer sizePage) {
+    public List<SaleInvoice> getList(Integer sttPage, Integer sizePage) {
         return this.hoaDonBanRepo.getList(sttPage, sizePage);
     }
     @Override
 
-    public HoaDonBan create(HoaDonBan t) {
+    public SaleInvoice create(SaleInvoice t) {
         return this.hoaDonBanRepo.create(t);
     }
 
     @Override
-    public HoaDonBan update(Long id, HoaDonBan t) {
+    public SaleInvoice update(Long id, SaleInvoice t) {
         return this.hoaDonBanRepo.update(id, t);
     }
 

@@ -2,33 +2,33 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.mavenproject3.Db.VatPham;
+package com.mycompany.mavenproject3.Db.Product.Entity;
 
 
 /**
  *
  * @author azoom
  */
-public class VatPham {
+public class Product {
     
     private Long id;
-    private String ten;
-    private Long gia;
-    private String donvi;
-    private String mota;
+    private String name;
+    private Long price;
+    private String unit;
+    private String description;
 //    private String urlanh;
-    private Integer soluong;
+    private Integer quantity;
     
-    public VatPham() {
+    public Product() {
     }
-    public VatPham(Long id, String ten, Long gia, String donvi, String mota, /* String urlanh, */ Integer soluong) {
+    public Product(Long id, String name, Long price, String unit, String description, /* String urlanh, */ Integer quantity) {
         this.id = id;
-        this.ten = ten;
-        this.gia = gia;
-        this.donvi = donvi;
-        this.mota = mota;
+        this.name = name;
+        this.price = price;
+        this.unit = unit;
+        this.description = description;
 //        this.urlanh = urlanh;
-        this.soluong = soluong;
+        this.quantity = quantity;
     }
 
     public Long getId() {
@@ -39,36 +39,36 @@ public class VatPham {
         this.id = id;
     }
 
-    public String getTen() {
-        return ten;
+    public String getName() {
+        return name;
     }
 
-    public void setTen(String ten) {
-        this.ten = ten;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Long getGia() {
-        return gia;
+    public Long getPrice() {
+        return price;
     }
 
-    public void setGia(Long gia) {
-        this.gia = gia;
+    public void setPrice(Long price) {
+        this.price = price;
     }
 
-    public String getDonvi() {
-        return donvi;
+    public String getUnit() {
+        return unit;
     }
 
-    public void setDonvi(String donvi) {
-        this.donvi = donvi;
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 
-    public String getMota() {
-        return mota;
+    public String getDescription() {
+        return description;
     }
 
-    public void setMota(String mota) {
-        this.mota = mota;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
 //    public String getUrlanh() {
@@ -79,17 +79,17 @@ public class VatPham {
 //        this.urlanh = urlanh;
 //    }
 
-    public Integer getSoluong() {
-        return soluong;
+    public Integer getQuantity() {
+        return quantity;
     }
 
-    public void setSoluong(Integer soluong) {
-        this.soluong = soluong;
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
     @Override
     public String toString() {
-        return "VatPham{" + "id=" + id + ", ten=" + ten + ", gia=" + gia + ", donvi=" + donvi + ", mota=" + mota + ", soluong=" + soluong + '}';
+        return "VatPham{" + "id=" + id + ", ten=" + name + ", gia=" + price + ", donvi=" + unit + ", mota=" + description + ", soluong=" + quantity + '}';
     }
     
     

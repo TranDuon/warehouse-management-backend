@@ -2,9 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.mavenproject3.Db.User;
+package com.mycompany.mavenproject3.Db.User.Repository;
 
+import com.mycompany.mavenproject3.Db.User.Entity.User;
 import com.mycompany.mavenproject3.Db.Interface.RepoInterface;
+import com.mycompany.mavenproject3.Db.User.Dto.UserDto;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -125,7 +127,7 @@ public class UserRepo
             ps.setString(1, t.getUsername());
             ps.setString(2, t.getPassword());
             ps.setString(3, t.getEmail());
-            ps.setString(4, t.getSodienthoai());
+            ps.setString(4, t.getPhoneNumber());
             ps.setBoolean(5, t.getEnabled());
             
             ps.executeUpdate();
@@ -162,7 +164,7 @@ public class UserRepo
             ps.setString(1, t.getUsername());
             ps.setString(2, t.getPassword());
             ps.setString(3, t.getEmail());
-            ps.setString(4, t.getSodienthoai());
+            ps.setString(4, t.getPhoneNumber());
             ps.setBoolean(5, t.getEnabled());
             
             ps.setLong(6, t.getId());

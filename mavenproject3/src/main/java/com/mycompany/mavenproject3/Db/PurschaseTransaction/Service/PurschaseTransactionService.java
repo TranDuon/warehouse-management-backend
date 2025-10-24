@@ -2,10 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.mavenproject3.Db.MotLuotNhap;
+package com.mycompany.mavenproject3.Db.PurschaseTransaction.Service;
 
+import com.mycompany.mavenproject3.Db.PurschaseTransaction.Repository.PurschaseTransactionRepo;
+import com.mycompany.mavenproject3.Db.PurschaseTransaction.Entity.PurschaseTransaction;
 import com.mycompany.mavenproject3.Db.Interface.ServiceInterface;
-import com.mycompany.mavenproject3.Db.MotLuotBan.MotLuotBan;
+import com.mycompany.mavenproject3.Db.SaleTransaction.Entity.SaleTransaction;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -13,32 +15,32 @@ import java.util.List;
  *
  * @author azoom
  */
-public class MotLuotNhapService 
-        implements ServiceInterface<MotLuotNhap, Long>
+public class PurschaseTransactionService 
+        implements ServiceInterface<PurschaseTransaction, Long>
 {
-    private MotLuotNhapRepo motLuotNhapRepo;
+    private PurschaseTransactionRepo motLuotNhapRepo;
 
-    public MotLuotNhapService() {
-        this.motLuotNhapRepo = new MotLuotNhapRepo();
+    public PurschaseTransactionService() {
+        this.motLuotNhapRepo = new PurschaseTransactionRepo();
     }
 
     @Override
-    public MotLuotNhap findById(Long id) {
+    public PurschaseTransaction findById(Long id) {
         return this.motLuotNhapRepo.findById(id);
     }
 
     @Override
-    public List<MotLuotNhap> getList(Integer sttPage, Integer sizePage) {
+    public List<PurschaseTransaction> getList(Integer sttPage, Integer sizePage) {
         return this.motLuotNhapRepo.getList(sttPage, sizePage);
     }
 
     @Override
-    public MotLuotNhap create(MotLuotNhap t) {
+    public PurschaseTransaction create(PurschaseTransaction t) {
         return this.motLuotNhapRepo.create(t);
     }
 
     @Override
-    public MotLuotNhap update(Long id, MotLuotNhap t) {
+    public PurschaseTransaction update(Long id, PurschaseTransaction t) {
         return this.motLuotNhapRepo.update(id, t);
     }
 
@@ -47,7 +49,7 @@ public class MotLuotNhapService
         return this.motLuotNhapRepo.delete(id);
     }
 
-    public List<MotLuotNhap> findByTime(Timestamp from, Timestamp to){
+    public List<PurschaseTransaction> findByTime(Timestamp from, Timestamp to){
         return this.motLuotNhapRepo.findByTime(from, to);
     }    
 }

@@ -2,32 +2,32 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.mavenproject3.ControllerAndView.MotLuotNhap;
+package com.mycompany.mavenproject3.View.PurschaseTransaction;
 
-import com.mycompany.mavenproject3.Db.DsspNhap.DsspNhap;
+import com.mycompany.mavenproject3.Db.PurschaseOrderItem.Entity.PurschaseOrderItem;
 
 /**
  *
  * @author azoom
  */
-public class DsspNhapHasNameProduct {
-    private DsspNhap dsspNhap;
-    private String ten;
+public class PurschaseOrderItemHasNameProduct {
+    private PurschaseOrderItem purschaseOrderItem;
+    private String name;
 
-    public DsspNhapHasNameProduct() {
+    public PurschaseOrderItemHasNameProduct() {
     }
 
-    public DsspNhapHasNameProduct(DsspNhap dsspNhap, String ten) {
-        this.dsspNhap = dsspNhap;
-        this.ten = ten;
+    public PurschaseOrderItemHasNameProduct(PurschaseOrderItem dsspNhap, String ten) {
+        this.purschaseOrderItem = dsspNhap;
+        this.name = ten;
     }
 
-    public DsspNhap getDsspNhap() {
-        return dsspNhap;
+    public PurschaseOrderItem getPurschaseOrderItem() {
+        return purschaseOrderItem;
     }
 
-    public String getTen() {
-        return ten;
+    public String getName() {
+        return name;
     }
     
     

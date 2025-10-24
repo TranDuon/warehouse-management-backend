@@ -3,13 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 
-package com.mycompany.mavenproject3.ControllerAndView.VatPham;
+package com.mycompany.mavenproject3.View.Product;
 
-import com.mycompany.mavenproject3.ControllerAndView.Interface.ViewHasChosenObjectInterface;
-import com.mycompany.mavenproject3.ControllerAndView.Interface.ViewHasListObjectInterface;
-import com.mycompany.mavenproject3.ControllerAndView.Interface.ViewHasObjectInterface;
-import com.mycompany.mavenproject3.ControllerAndView.Interface.ViewHasParameterObject;
-import com.mycompany.mavenproject3.Db.VatPham.VatPham;
+import com.mycompany.mavenproject3.View.Interface.ViewHasChosenObjectInterface;
+import com.mycompany.mavenproject3.View.Interface.ViewHasListObjectInterface;
+import com.mycompany.mavenproject3.View.Interface.ViewHasObjectInterface;
+import com.mycompany.mavenproject3.View.Interface.ViewHasParameterObject;
+import com.mycompany.mavenproject3.Db.Product.Entity.Product;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,19 +19,19 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author azoom
  */
-public class ListVatPhamView 
+public class ListProductView 
         extends javax.swing.JFrame 
         implements 
-            ViewHasListObjectInterface<VatPham>,
-            ViewHasChosenObjectInterface<VatPham>,
-            ViewHasParameterObject<ListVatPhamViewParameter>
+            ViewHasListObjectInterface<Product>,
+            ViewHasChosenObjectInterface<Product>,
+            ViewHasParameterObject<ListProductViewParameter>
 {
 
-    private List<VatPham> dsO;
-    private ListVatPhamViewParameter p;
+    private List<Product> dsO;
+    private ListProductViewParameter p;
     
     /** Creates new form ListVatPhamView */
-    public ListVatPhamView() {
+    public ListProductView() {
         initComponents();
     }
 
@@ -58,24 +58,24 @@ public class ListVatPhamView
         DefaultTableModel model = (DefaultTableModel) this.table.getModel();
         model.setRowCount(0);
         
-        this.sttPage.setText("1");
+        this.pageNum.setText("1");
         this.sizePage.setText("20");
     }
 
     @Override
-    public void setListObjectAndReload(List<VatPham> dsT) {
+    public void setListObjectAndReload(List<Product> dsT) {
         this.dsO = dsT;
         this.reloadListObjectOnView();
     }
 
     @Override
-    public List<VatPham> getListObjectFromView() {
+    public List<Product> getListObjectFromView() {
         DefaultTableModel model = (DefaultTableModel) this.table.getModel();
         Integer sohang = model.getRowCount();
         
-        List<VatPham> list = new ArrayList<>();
+        List<Product> list = new ArrayList<>();
         for(int i=0; i<sohang; i++){
-            VatPham t = new VatPham(
+            Product t = new Product(
                     Long.valueOf(model.getValueAt(i, 0).toString()),
                     (String) model.getValueAt(i, 1),
                     Long.valueOf(model.getValueAt(i, 2).toString()),
@@ -95,15 +95,15 @@ public class ListVatPhamView
         DefaultTableModel model = (DefaultTableModel) this.table.getModel();
         model.setRowCount(0);
         
-        for(VatPham o : dsO){
+        for(Product o : dsO){
             model.addRow(
                     new Object[]{
                         o.getId(),
-                        o.getTen(),
-                        o.getGia(),
-                        o.getDonvi(),
-                        o.getMota(),
-                        o.getSoluong()
+                        o.getName(),
+                        o.getPrice(),
+                        o.getUnit(),
+                        o.getDescription(),
+                        o.getQuantity()
                     } 
             );
             //"id", "ten", "gia", "don vi", "mo ta", "so luong"            
@@ -114,12 +114,12 @@ public class ListVatPhamView
 
     
     @Override
-    public VatPham getChosenObject() {
+    public Product getChosenObject() {
         Integer sttHangDaChon = this.table.getSelectedRow();
         if(sttHangDaChon!=-1){
             DefaultTableModel model = (DefaultTableModel) this.table.getModel();
             
-            VatPham t = new VatPham(
+            Product t = new Product(
                     Long.valueOf(model.getValueAt(sttHangDaChon, 0).toString()),
                     (String) model.getValueAt(sttHangDaChon, 1),
                     Long.valueOf(model.getValueAt(sttHangDaChon, 2).toString()),
@@ -134,22 +134,22 @@ public class ListVatPhamView
     }
 
     @Override
-    public ListVatPhamViewParameter getParameterFromView() {
-        return new ListVatPhamViewParameter(
-                Integer.valueOf(this.sttPage.getText()),
+    public ListProductViewParameter getParameterFromView() {
+        return new ListProductViewParameter(
+                Integer.valueOf(this.pageNum.getText()),
                 Integer.valueOf(this.sizePage.getText())
         );
     }
 
     @Override
-    public void setParameterAndReload(ListVatPhamViewParameter t) {
+    public void setParameterAndReload(ListProductViewParameter t) {
         this.p = t;
         this.reloadParameterOnView();
     }
 
     @Override
     public void reloadParameterOnView() {
-        this.sttPage.setText(this.p.getSttPage().toString());
+        this.pageNum.setText(this.p.getPageNum().toString());
         this.sizePage.setText(this.p.getSizePage().toString());
     }
     
@@ -169,7 +169,7 @@ public class ListVatPhamView
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        sttPage = new javax.swing.JTextField();
+        pageNum = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         sizePage = new javax.swing.JTextField();
         getList = new javax.swing.JButton();
@@ -216,19 +216,22 @@ public class ListVatPhamView
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(sttPage, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(sizePage, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(getList))
-                    .addComponent(getDetails)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(pageNum, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(sizePage, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(getList))
+                            .addComponent(getDetails))
+                        .addGap(0, 116, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -236,7 +239,7 @@ public class ListVatPhamView
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(sttPage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pageNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(sizePage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(getList))
@@ -267,20 +270,21 @@ public class ListVatPhamView
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ListVatPhamView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListProductView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ListVatPhamView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListProductView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ListVatPhamView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListProductView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListVatPhamView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListProductView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ListVatPhamView().setVisible(true);
+                new ListProductView().setVisible(true);
             }
         });
     }
@@ -291,8 +295,8 @@ public class ListVatPhamView
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField pageNum;
     private javax.swing.JTextField sizePage;
-    private javax.swing.JTextField sttPage;
     private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 

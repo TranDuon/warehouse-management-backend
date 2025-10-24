@@ -2,8 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.mavenproject3.Db.DsspNhap;
+package com.mycompany.mavenproject3.Db.PurschaseOrderItem.Service;
 
+import com.mycompany.mavenproject3.Db.PurschaseOrderItem.Repository.PurschaseOrderItemRepo;
+import com.mycompany.mavenproject3.Db.PurschaseOrderItem.Entity.PurschaseOrderItem;
+import com.mycompany.mavenproject3.Db.PurschaseOrderItem.Entity.PurschaseOrderItemId;
 import com.mycompany.mavenproject3.Db.Interface.ServiceInterface;
 import java.util.List;
 
@@ -11,42 +14,42 @@ import java.util.List;
  *
  * @author azoom
  */
-public class DsspNhapService 
-        implements ServiceInterface<DsspNhap, DsspNhapId>
+public class PurschaseOrderItemService 
+        implements ServiceInterface<PurschaseOrderItem, PurschaseOrderItemId>
 {
-    private DsspNhapRepo dsspNhapRepo;
+    private PurschaseOrderItemRepo dsspNhapRepo;
 
-    public DsspNhapService() {
-        this.dsspNhapRepo = new DsspNhapRepo();
+    public PurschaseOrderItemService() {
+        this.dsspNhapRepo = new PurschaseOrderItemRepo();
     }
 
     @Override
-    public DsspNhap findById(DsspNhapId id) {
+    public PurschaseOrderItem findById(PurschaseOrderItemId id) {
         return this.dsspNhapRepo.findById(id);
     }
 
     @Override
-    public List<DsspNhap> getList(Integer sttPage, Integer sizePage) {
+    public List<PurschaseOrderItem> getList(Integer sttPage, Integer sizePage) {
         return this.dsspNhapRepo.getList(sttPage, sizePage);
     }
 
     @Override
-    public DsspNhap create(DsspNhap t) {
+    public PurschaseOrderItem create(PurschaseOrderItem t) {
         return this.dsspNhapRepo.create(t);
     }
 
     @Override
-    public DsspNhap update(DsspNhapId id, DsspNhap t) {
+    public PurschaseOrderItem update(PurschaseOrderItemId id, PurschaseOrderItem t) {
         return this.dsspNhapRepo.update(id, t);
     }
 
     @Override
-    public Boolean delete(DsspNhapId id) {
+    public Boolean delete(PurschaseOrderItemId id) {
         return this.dsspNhapRepo.delete(id);
     }
     
-    public List<DsspNhap> findByMotLuotNhapId(Long motLuotNhapId){
-        return this.dsspNhapRepo.findByMotLuotNhapId(motLuotNhapId);
+    public List<PurschaseOrderItem> findByMotLuotNhapId(Long motLuotNhapId){
+        return this.dsspNhapRepo.findByPurschaseTransactionId(motLuotNhapId);
     }
     
 }

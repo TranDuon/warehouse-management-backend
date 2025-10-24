@@ -2,8 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.mavenproject3.Db.Role;
+package com.mycompany.mavenproject3.Db.Role.Service;
 
+import com.mycompany.mavenproject3.Db.Role.Repository.RoleRepo;
+import com.mycompany.mavenproject3.Db.Role.Entity.Role;
 import com.mycompany.mavenproject3.Db.Interface.ServiceInterface;
 import java.util.List;
 
